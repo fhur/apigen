@@ -57,17 +57,12 @@ class Endpoint
 
   end
 
-  def put_field(field, type = :string)
-    raise ArgumentError, "field #{field} must be of type String" unless String == field.class
-    @fields[field] = type
+  def put_header(header)
+    @headers[header.name] = header
   end
 
-  def put_header(header, value)
-    @headers[header] = value
-  end
-
-  def put_query(name, value)
-    @query_params[name] = value
+  def put_query_param(query_param)
+    @query_params[query_param.name] = query_param
   end
 
 end

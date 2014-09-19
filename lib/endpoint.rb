@@ -19,12 +19,33 @@ class Endpoint
   END_PATH_SEPARATOR = '}}'
   TOKEN_TYPE_SEPARATOR = ':'
 
+  # the type of request, can be one of
+  # :simple, :multipart or :form_url_encoded
+  attr_reader :request_type
+
+  # The method or http verb, can be one of
+  # :get, :post, :put, :delete
+  attr_reader :method
+
+  # The request url. It can contain path params.
+  # Example: /users/{{user_id}}/show
+  attr_reader :url
+
+  # Path params are obtained by parsing the url.
+  # All params are delimited by {{ and }} so for example
+  # /users/{{user_id}}/cars/{{car_id}}/show has 2 path_params
+  # the first one is user_id and the second one is car_id
+  # TODO: Implement type enforcing
+  # You can optionally enforce the path_param's type using the
+  # following syntax {{param_name:type}} where type can be one of
+  # string, int, float, double or boolean
+  attr_reader :path_params
+
+  # Url params are those that belong to the url in the form of queries
+  # i.e. /users?user_name=bob contains the user_name query param
   attr_reader :query_params
   attr_reader :headers
   attr_reader :fields
-  attr_reader :url
-  attr_reader :path_params
-  attr_reader :method
   attr_reader :name
   attr_reader :docs
 
@@ -70,16 +91,16 @@ class Endpoint
 
   end
 
-  def set_field(field, type = :string)
+  def put_field(field, type = :string)
     raise ArgumentError, "field #{field} must be of type String" unless String == field.class
     @fields[field] = type
   end
 
-  def set_header(header, value)
+  def put_header(header, value)
     @headers[header] = value
   end
 
-  def set_query(name, value)
+  def put_query(name, value)
     @query_params[name] = value
   end
 
@@ -120,45 +141,3 @@ class Endpoint
   end
 end
 
-class RetrofitGenerator < Generator
-
-  def initialize(name)
-    super()
-    @class_name = name
-  end
-
-  def generate
-    @endpoints.each do |endpoint|
-
-    end
-
-    """
-      public interface #{@class_name} {
-
-      #{get_endpoints}
-      }
-    """
-  end
-
-  def get_endpoints
-    @endpoints.reduce("") do |result, endpoint|
-      result += get_endpoint(endpoint)
-    end
-  end
-
-  def get_endpoint(endpoint)
-    return """
-      
-      public void #{endpoint.name}()
-    """
-  end
-
-end
-
-e1 = Endpoint.new name: 'registerUser', url: '/foo/{{id}}/{{name}}/bar'
-e2 = Endpoint.new name: 'killUser', url: '/fee/{{fi}}-{{foh}}/fum'
-
-gen = RetrofitGenerator.new 'UsersApi'
-gen.add_endpoint e1
-gen.add_endpoint e2
-puts gen.generate

@@ -8,19 +8,19 @@ class Method
     @name, @has_body = name, has_body
   end
 
-  def Method.GET
+  def Method.get
     Method.new name: :get
   end
 
-  def Method.DELETE
+  def Method.delete
     Method.new name: :delete
   end
 
-  def Method.POST
+  def Method.post
     Method.new name: :post, has_body: true
   end
 
-  def Method.PUT
+  def Method.put
     Method.new name: :put, has_body: true
   end
 

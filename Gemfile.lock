@@ -1,10 +1,12 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    minitest (5.4.0)
     mustache (0.99.6)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
+  minitest
   mustache

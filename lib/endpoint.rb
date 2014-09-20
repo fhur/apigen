@@ -1,5 +1,5 @@
 require_relative './header.rb'
-require_relative './method.rb'
+require_relative './http_method.rb'
 require_relative './path_param.rb'
 require_relative './query_param.rb'
 
@@ -9,7 +9,7 @@ class Endpoint
   # :simple, :multipart or :form_url_encoded
   attr_reader :request_type
 
-  # The method or http verb, an instance of Method
+  # The method or http verb, an instance of HttpMethod
   attr_reader :method
 
   # The request url. It can contain path params.
@@ -43,8 +43,8 @@ class Endpoint
   # Initializes a new endpoint
   # @param {String} name
   # @param {String} url
-  # @param {Method} method the http method
-  def initialize(name: require_name, url: require_url, method: Method.get)
+  # @param {HttpMethod} method the http method
+  def initialize(name: require_name, url: require_url, method: HttpMethod.get)
 
     @name = name
     @url = url

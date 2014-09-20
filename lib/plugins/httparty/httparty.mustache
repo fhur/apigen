@@ -1,0 +1,15 @@
+class {{name}}Api
+  include HTTParty
+
+  {{#endpoints}}
+  {{! Mustache template that renders an endpoint}}
+  def {{endpoint_name}}({{parameters}})
+    self.class.{{method}}(
+      {{formatted_url}},
+      query: { {{query_hash}} },
+      headers: { {{header_hash}} }
+    )
+  end
+  {{/endpoint}}
+
+end

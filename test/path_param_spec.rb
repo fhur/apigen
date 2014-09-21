@@ -10,9 +10,9 @@ describe PathParam do
     end
 
     it "should return a map of params " do
-      path_params = PathParam.fromUrl('/{{foo}}/fum/{{bar}}-{{baz}}/fee')
+      path_params = PathParam.fromUrl('/{{foo_bar}}/fum/{{bar}}-{{baz}}/fee')
       path_params.size.must_equal 3
-      [:foo,:bar,:baz].each do |attr|
+      [:foo_bar,:bar,:baz].each do |attr|
         path_params[attr].wont_be_nil
         path_params[attr].name.must_equal attr
       end

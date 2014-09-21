@@ -19,7 +19,7 @@ class PathParam
   def PathParam.fromUrl(url)
     path_params = {} # create an empty hash that will hold the path params
     # tokens will hold an array of {{string}} elements
-    tokens = url.gsub(/#{INIT_PATH_SEPARATOR}[a-zA-Z0-9]+(:[a-zA-Z0-9]+)?#{END_PATH_SEPARATOR}/).to_a
+    tokens = url.gsub(/#{INIT_PATH_SEPARATOR}[a-zA-Z0-9]+(_[a-zA-Z0-9]+)?(:[a-zA-Z0-9]+)?#{END_PATH_SEPARATOR}/).to_a
     tokens.each do |token|
       path_param = PathParam.parse_path_param_token(token)
       path_params[path_param.name] = path_param

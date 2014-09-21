@@ -53,7 +53,7 @@ class Endpoint
     @path_params = PathParam.fromUrl(@url)
     @query_params = {}
     @headers = {}
-    @fields = {}
+    @request_params = {}
 
   end
 

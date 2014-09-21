@@ -3,7 +3,7 @@ class {{name}}Api
 
   {{#endpoints}}
   {{! Mustache template that renders an endpoint}}
-  def {{endpoint_name}}({{parameters}})
+  def {{name}}({{parameters}})
     self.class.{{method}}(
       {{formatted_url}},
       query: { {{query_hash}} },

@@ -1,7 +1,7 @@
 class PathParam
 
-  INIT_PATH_SEPARATOR = '{{'
-  END_PATH_SEPARATOR = '}}'
+  INIT_PATH_SEPARATOR = '{'
+  END_PATH_SEPARATOR = '}'
   TOKEN_TYPE_SEPARATOR = ':'
 
   attr_accessor :name

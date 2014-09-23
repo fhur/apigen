@@ -11,6 +11,7 @@ describe Lexer do
     it "should recognize types" do
       ["string", "int", "boolean", "float"].each do |type|
         @lexer.tokenize(type).must_equal [[:TYPE, type]]
+      end
     end
   end
 
@@ -22,7 +23,7 @@ describe Lexer do
     end
   end
 
-  describe "Method"
+  describe "Method" do
     it "should recognize method" do
       ["get", "post", "put", "delete"].each do |keyword|
         @lexer.tokenize(keyword).must_equal [[:METHOD, keyword]]
@@ -55,6 +56,15 @@ describe Lexer do
       tokens = @lexer.tokenize("@query {string} user_id")
       tokens.must_equal [
         [:@QUERY, "@query"], ["{"], [:TYPE, "string"], [':'], [:OPTIONAL, "optional"], ["}"], [:IDENTIFIER, "user_id"]
+      ]
+    end
+  end
+
+  describe "path params" do
+    it "should recognize path params" do
+      tokens = @lexer.tokenize("@param {boolean} is_registered comments")
+      tokens.must_equal [
+        [:@PARAM, "@param"], ["{"], [:TYPE, "boolean"], ["}"], [:IDENTIFIER, "is_registered"], [:IDENTIFIER, "comments"]
       ]
     end
   end

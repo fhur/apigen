@@ -36,10 +36,25 @@ describe Lexer do
   end
 
   describe "query params" do
+
     it "should recognize @query params" do
       tokens = @lexer.tokenize("@query {string} user_id comments")
       tokens.must_equal [
         [:@QUERY, "@query"], ["{"], [:TYPE, "string"], ["}"], [:IDENTIFIER, "user_id"], [:IDENTIFIER, "comments"]
+      ]
+    end
+
+    it "should recognize optional types" do
+      tokens = @lexer.tokenize("@query {string:optional} user_id comments")
+      tokens.must_equal [
+        [:@QUERY, "@query"], ["{"], [:TYPE, "string"], [':'], [:OPTIONAL, "optional"], ["}"], [:IDENTIFIER, "user_id"], [:IDENTIFIER, "comments"]
+      ]
+    end
+
+    it "should recognize optional comments" do
+      tokens = @lexer.tokenize("@query {string} user_id")
+      tokens.must_equal [
+        [:@QUERY, "@query"], ["{"], [:TYPE, "string"], [':'], [:OPTIONAL, "optional"], ["}"], [:IDENTIFIER, "user_id"]
       ]
     end
   end

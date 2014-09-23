@@ -7,27 +7,32 @@ describe Lexer do
     @lexer = Lexer.new
   end
 
-  it "should recognize types" do
-    ["string", "int", "boolean", "float"].each do |type|
-      @lexer.tokenize(type).must_equal [[:TYPE, type]]
+  describe "types" do
+    it "should recognize types" do
+      ["string", "int", "boolean", "float"].each do |type|
+        @lexer.tokenize(type).must_equal [[:TYPE, type]]
     end
   end
 
-  it "should recognize keywords" do
-    ["@query", "@param", "@header", "@path"].each do |keyword|
-      @lexer.tokenize(keyword).must_equal [[keyword.upcase.to_sym, keyword]]
+  describe "keywords" do
+    it "should recognize keywords" do
+      ["@query", "@param", "@header", "@path"].each do |keyword|
+        @lexer.tokenize(keyword).must_equal [[keyword.upcase.to_sym, keyword]]
+      end
     end
   end
 
-  it "should recognize method" do
-    ["get", "post", "put", "delete"].each do |keyword|
-      @lexer.tokenize(keyword).must_equal [[:METHOD, keyword]]
+  describe "Method"
+    it "should recognize method" do
+      ["get", "post", "put", "delete"].each do |keyword|
+        @lexer.tokenize(keyword).must_equal [[:METHOD, keyword]]
+      end
     end
-  end
 
-  it "should recognize method and urls" do
-    tokens = @lexer.tokenize("delete /users/{user_id}/friends/{friend_id}")
-    tokens.must_equal [[:METHOD, "delete"],[:URL, "/users/{user_id}/friends/{friend_id}"]]
+    it "should recognize method and urls" do
+      tokens = @lexer.tokenize("delete /users/{user_id}/friends/{friend_id}")
+      tokens.must_equal [[:METHOD, "delete"],[:URL, "/users/{user_id}/friends/{friend_id}"]]
+    end
   end
 
   describe "query params" do
@@ -38,5 +43,4 @@ describe Lexer do
       ]
     end
   end
-
 end

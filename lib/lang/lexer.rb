@@ -77,6 +77,10 @@ class Lexer
       elsif chunk.match(/\A /)
         i += 1
 
+      # skip \n
+      elsif chunk.match(/\A\n/)
+        i += 1
+
       # if nothing matches, throw an error
       else
         raise "Could not match '#{chunk}'"

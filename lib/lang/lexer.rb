@@ -1,3 +1,19 @@
+
+
+
+
+#
+# The ApiGen Lexer
+#
+# @param|@query|@header|@path|optional  => :@PARAM, @QUERY, ..., :OPTIONAL
+# string|int|boolean|float              => [:TYPE, text]
+# get|put|post|delete                   => [:METHOD, text]
+# \/(\S+)                               => [:URL, text]
+# :                                     => [:COLON, text]
+# {|}                                   => [:BRACE, text]
+# \S+                                   => [:IDENTIFIER, text]
+#
+# Ignore spaces and new lines
 class Lexer
 
   KEYWORDS = [

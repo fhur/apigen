@@ -41,21 +41,21 @@ describe Lexer do
     it "should recognize @query params" do
       tokens = @lexer.tokenize("@query {string} user_id comments")
       tokens.must_equal [
-        [:@QUERY, "@query"], ["{"], [:TYPE, "string"], ["}"], [:IDENTIFIER, "user_id"], [:IDENTIFIER, "comments"]
+        [:@QUERY, "@query"], [:BRACE,"{"], [:TYPE, "string"], [:BRACE,"}"], [:IDENTIFIER, "user_id"], [:IDENTIFIER, "comments"]
       ]
     end
 
     it "should recognize optional types" do
       tokens = @lexer.tokenize("@query {string:optional} user_id comments")
       tokens.must_equal [
-        [:@QUERY, "@query"], ["{"], [:TYPE, "string"], [':'], [:OPTIONAL, "optional"], ["}"], [:IDENTIFIER, "user_id"], [:IDENTIFIER, "comments"]
+        [:@QUERY, "@query"], [:BRACE,"{"], [:TYPE, "string"], [:COLON, ':'], [:OPTIONAL, "optional"], [:BRACE,"}"], [:IDENTIFIER, "user_id"], [:IDENTIFIER, "comments"]
       ]
     end
 
     it "should recognize optional comments" do
-      tokens = @lexer.tokenize("@query {string} user_id")
+      tokens = @lexer.tokenize("@query {string:optional} user_id")
       tokens.must_equal [
-        [:@QUERY, "@query"], ["{"], [:TYPE, "string"], [':'], [:OPTIONAL, "optional"], ["}"], [:IDENTIFIER, "user_id"]
+        [:@QUERY, "@query"], [:BRACE,"{"], [:TYPE, "string"], [:COLON,':'], [:OPTIONAL, "optional"], [:BRACE,"}"], [:IDENTIFIER, "user_id"]
       ]
     end
   end
@@ -64,7 +64,7 @@ describe Lexer do
     it "should recognize path params" do
       tokens = @lexer.tokenize("@param {boolean} is_registered comments")
       tokens.must_equal [
-        [:@PARAM, "@param"], ["{"], [:TYPE, "boolean"], ["}"], [:IDENTIFIER, "is_registered"], [:IDENTIFIER, "comments"]
+        [:@PARAM, "@param"], [:BRACE,"{"], [:TYPE, "boolean"], [:BRACE,"}"], [:IDENTIFIER, "is_registered"], [:IDENTIFIER, "comments"]
       ]
     end
   end

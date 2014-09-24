@@ -7,6 +7,12 @@ describe Lexer do
     @lexer = Lexer.new
   end
 
+  describe "empty program" do
+    it "should return an empty token list" do
+      @lexer.tokenize(" ").must_equal []
+    end
+  end
+
   describe "types" do
     it "should recognize types" do
       ["string", "int", "boolean", "float"].each do |type|

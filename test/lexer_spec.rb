@@ -68,4 +68,24 @@ describe Lexer do
       ]
     end
   end
+
+  describe "complex scenario" do
+    it "should tokenize multistrings" do
+      code = """
+      get /users/{user_id}/show
+      @path {int} user_id The user's id
+      @query {string} date
+      @query {boolean:optional} sort
+      @header Content-Type application/json
+      """
+      tokens = @lexer.tokenize(code)
+      tokens.must_equal [
+        [:METHOD, 'get'], [:URL,'/users/{user_id}/show' ],
+        [:@PATH, "@path"], [:BRACE, "{"], [:TYPE, "int"], [:BRACE, "}"], [:IDENTIFIER, "user_id"], [:IDENTIFIER, "The"], [:IDENTIFIER, "user's"], [:IDENTIFIER, "id"],
+        [:@QUERY, "@query"] , [:BRACE, "{"], [:TYPE, "string"], [:BRACE, "}"], [:IDENTIFIER, "date"],
+        [:@QUERY, "@query"] , [:BRACE, "{"], [:TYPE, "boolean"], [:COLON, ":"], [:OPTIONAL, "optional"], [:BRACE, "}"], [:IDENTIFIER, "sort"],
+        [:@HEADER, "@header"], [:IDENTIFIER, 'Content-Type'], [:IDENTIFIER, "application/json"]
+      ]
+    end
+  end
 end

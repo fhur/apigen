@@ -52,7 +52,8 @@ class Lexer
       # First we will match all keywords
       # i.e. @query, @param, @header, @path
       if keyword = chunk[/\A(#{KEYWORDS.join("|")})/, 1]
-        tokens << [to_identifier(keyword), keyword]
+        identifier = keyword.gsub("@","") # remove the @ as the parser doesnot accept it
+        tokens << [to_identifier(identifier), keyword]
         i += keyword.size
 
       # Now we match http methods

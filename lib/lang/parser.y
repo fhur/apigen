@@ -22,21 +22,21 @@ rule
                     | expressions   { result = val[0] }
                     ;
 
-  expressions       : method_with_url
-                    | method_with_url param_list
+  expressions       : method_with_url { result = val }
+                    | method_with_url param_list { result = val }
                     ;
 
-  param_list        : param
-                    | param_list param
+  param_list        : param { result = val }
+                    | param_list param { result = val[0] << val[1] }
                     ;
 
-  param             : path_param
-                    | query_param
-                    | header_param
+  param             : path_param { result = val }
+                    | query_param { result = val }
+                    | header_param { result = val }
                     ;
 
-  type_structure    : BRACE IDENTIFIER BRACE { result = TypeNode.new val[1] }
-                    | BRACE IDENTIFIER COLON OPTIONAL BRACE { result = TypeNode.new [1], [3] }
+  type_structure    : BRACE TYPE BRACE { result = TypeNode.new val[1], true }
+                    | BRACE TYPE COLON OPTIONAL BRACE { result = TypeNode.new [1], false }
                     ;
 
   path_param        : PATH type_structure IDENTIFIER { result = PathParam.new(val[1], val[2]) }

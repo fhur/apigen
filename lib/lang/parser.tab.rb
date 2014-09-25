@@ -40,7 +40,7 @@ racc_action_check = [
 
 racc_action_pointer = [
      2,    18,   nil,    -3,     4,     9,     0,   nil,   nil,   nil,
-   nil,     0,     1,    -4,   nil,   nil,   nil,     2,     3,     4,
+   nil,     0,     1,    -4,   nil,   nil,   nil,     7,     3,     4,
      5,    -4,   nil,   nil,   nil,   nil,    13,     9,   nil ]
 
 racc_action_default = [
@@ -64,13 +64,13 @@ racc_reduce_table = [
   0, 0, :racc_error,
   0, 14, :_reduce_1,
   1, 14, :_reduce_2,
-  1, 15, :_reduce_none,
-  2, 15, :_reduce_none,
-  1, 17, :_reduce_none,
-  2, 17, :_reduce_none,
-  1, 18, :_reduce_none,
-  1, 18, :_reduce_none,
-  1, 18, :_reduce_none,
+  1, 15, :_reduce_3,
+  2, 15, :_reduce_4,
+  1, 17, :_reduce_5,
+  2, 17, :_reduce_6,
+  1, 18, :_reduce_7,
+  1, 18, :_reduce_8,
+  1, 18, :_reduce_9,
   3, 22, :_reduce_10,
   5, 22, :_reduce_11,
   3, 19, :_reduce_12,
@@ -162,30 +162,65 @@ module_eval(<<'.,.,', 'parser.y', 21)
   end
 .,.,
 
-# reduce 3 omitted
+module_eval(<<'.,.,', 'parser.y', 24)
+  def _reduce_3(val, _values, result)
+     result = val 
+    result
+  end
+.,.,
 
-# reduce 4 omitted
+module_eval(<<'.,.,', 'parser.y', 25)
+  def _reduce_4(val, _values, result)
+     result = val 
+    result
+  end
+.,.,
 
-# reduce 5 omitted
+module_eval(<<'.,.,', 'parser.y', 28)
+  def _reduce_5(val, _values, result)
+     result = val 
+    result
+  end
+.,.,
 
-# reduce 6 omitted
+module_eval(<<'.,.,', 'parser.y', 29)
+  def _reduce_6(val, _values, result)
+     result = val[0] << val[1] 
+    result
+  end
+.,.,
 
-# reduce 7 omitted
+module_eval(<<'.,.,', 'parser.y', 32)
+  def _reduce_7(val, _values, result)
+     result = val 
+    result
+  end
+.,.,
 
-# reduce 8 omitted
+module_eval(<<'.,.,', 'parser.y', 33)
+  def _reduce_8(val, _values, result)
+     result = val 
+    result
+  end
+.,.,
 
-# reduce 9 omitted
+module_eval(<<'.,.,', 'parser.y', 34)
+  def _reduce_9(val, _values, result)
+     result = val 
+    result
+  end
+.,.,
 
 module_eval(<<'.,.,', 'parser.y', 37)
   def _reduce_10(val, _values, result)
-     result = TypeNode.new val[1] 
+     result = TypeNode.new val[1], true 
     result
   end
 .,.,
 
 module_eval(<<'.,.,', 'parser.y', 38)
   def _reduce_11(val, _values, result)
-     result = TypeNode.new [1], [3] 
+     result = TypeNode.new [1], false 
     result
   end
 .,.,

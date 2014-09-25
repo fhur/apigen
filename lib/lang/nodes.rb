@@ -1,12 +1,6 @@
 class Nodes < Struct.new :nodes; end
 
-class TypeNode < Struct.new :type
-
-  def initialize(type, required = true)
-    @required = required
-  end
-
-end
+class TypeNode < Struct.new :type, :required; end
 
 class QueryNode < Struct.new :type, :name; end
 

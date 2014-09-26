@@ -39,7 +39,7 @@ rule
                     | BRACE TYPE COLON OPTIONAL BRACE { result = TypeNode.new [1], false }
                     ;
 
-  path_param        : PATH type_structure IDENTIFIER { result = PathParam.new(val[1], val[2]) }
+  path_param        : PATH type_structure IDENTIFIER { result = PathNode.new(val[1], val[2]) }
                     ;
 
   query_param       : QUERY type_structure IDENTIFIER { result = QueryNode.new(val[1], val[2]) }

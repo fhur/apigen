@@ -227,7 +227,7 @@ module_eval(<<'.,.,', 'parser.y', 38)
 
 module_eval(<<'.,.,', 'parser.y', 41)
   def _reduce_12(val, _values, result)
-     result = PathParam.new(val[1], val[2]) 
+     result = PathNode.new(val[1], val[2]) 
     result
   end
 .,.,

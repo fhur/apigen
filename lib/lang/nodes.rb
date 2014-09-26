@@ -8,6 +8,6 @@ class HeaderNode < Struct.new :name, :value; end
 
 class UrlMethod < Struct.new :method, :url; end
 
-class PathParam < Struct.new :type, :name; end
+class PathNode < Struct.new :type, :name; end
 
 

@@ -1,3 +1,11 @@
+require './lib/endpoint.rb'
+require './lib/lang/parser.tab.rb'
+require './lib/lang/nodes.rb'
+require './lib/lang/path_param.rb'
+require './lib/lang/header.rb'
+require './lib/lang/query_param.rb'
+require './lib/lang/request_param.rb'
+
 class ApigenCompiler
 
   def initialize()

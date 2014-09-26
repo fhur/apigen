@@ -15,7 +15,6 @@ class Parser < Racc::Parser
 module_eval(<<'...end parser.y/module_eval...', 'parser.y', 61)
 
   def parse(code, show_tokens=false)
-    puts "parsing"
     @tokens = Lexer.new.tokenize(code) # Tokenize the code using our lexer
     puts @tokens.inspect if show_tokens
     do_parse # Kickoff the parsing process
@@ -157,7 +156,7 @@ module_eval(<<'.,.,', 'parser.y', 20)
 
 module_eval(<<'.,.,', 'parser.y', 21)
   def _reduce_2(val, _values, result)
-     result = val[0] 
+     result = Nodes.new val[0] 
     result
   end
 .,.,
@@ -220,7 +219,7 @@ module_eval(<<'.,.,', 'parser.y', 37)
 
 module_eval(<<'.,.,', 'parser.y', 38)
   def _reduce_11(val, _values, result)
-     result = TypeNode.new [1], false 
+     result = TypeNode.new val[1], false 
     result
   end
 .,.,

@@ -19,7 +19,7 @@ class Parser
 rule
 
   program           : /* nothing */ { result = Nodes.new([]) }
-                    | expressions   { result = val[0] }
+                    | expressions   { result = Nodes.new val[0] }
                     ;
 
   expressions       : method_with_url { result = val }
@@ -36,7 +36,7 @@ rule
                     ;
 
   type_structure    : BRACE TYPE BRACE { result = TypeNode.new val[1], true }
-                    | BRACE TYPE COLON OPTIONAL BRACE { result = TypeNode.new [1], false }
+                    | BRACE TYPE COLON OPTIONAL BRACE { result = TypeNode.new val[1], false }
                     ;
 
   path_param        : PATH type_structure IDENTIFIER { result = PathNode.new(val[1], val[2]) }
@@ -60,7 +60,6 @@ rule
 ---- inner
 
   def parse(code, show_tokens=false)
-    puts "parsing"
     @tokens = Lexer.new.tokenize(code) # Tokenize the code using our lexer
     puts @tokens.inspect if show_tokens
     do_parse # Kickoff the parsing process

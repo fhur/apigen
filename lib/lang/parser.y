@@ -48,7 +48,7 @@ rule
   header_param      : HEADER IDENTIFIER IDENTIFIER { result = HeaderNode.new(val[1], val[2]) }
                     ;
 
-  method_with_url   : METHOD URL { result = UrlMethod.new :method, :url }
+  method_with_url   : METHOD URL { result = UrlMethod.new val[0], val[1] }
                     ;
 
 

@@ -248,7 +248,7 @@ module_eval(<<'.,.,', 'parser.y', 47)
 
 module_eval(<<'.,.,', 'parser.y', 50)
   def _reduce_15(val, _values, result)
-     result = UrlMethod.new :method, :url 
+     result = UrlMethod.new val[0], val[1] 
     result
   end
 .,.,

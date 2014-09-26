@@ -22,17 +22,17 @@ describe Lexer do
   end
 
   describe "keywords" do
-    it "should recognize keywords" do
-      ["@query", "@param", "@header", "@path"].each do |keyword|
-        @lexer.tokenize(keyword).must_equal [[keyword.upcase.gsub("@","").to_sym, keyword]]
-      end
+    ["@query", "@param", "@header", "@path", "optional", "@name" ].each do |keyword|
+        it "should recognize keyword #{keyword}" do
+          @lexer.tokenize(keyword).must_equal [[keyword.upcase.gsub("@","").to_sym, keyword]]
+        end
     end
   end
 
   describe "Method" do
-    it "should recognize method" do
-      ["get", "post", "put", "delete"].each do |keyword|
-        @lexer.tokenize(keyword).must_equal [[:METHOD, keyword]]
+    ["get", "post", "put", "delete"].each do |method|
+      it "should recognize method #{method}" do
+        @lexer.tokenize(method).must_equal [[:METHOD, method]]
       end
     end
 
@@ -40,7 +40,13 @@ describe Lexer do
       tokens = @lexer.tokenize("delete /users/{user_id}/friends/{friend_id}")
       tokens.must_equal [[:METHOD, "delete"],[:URL, "/users/{user_id}/friends/{friend_id}"]]
     end
-  end
+
+     it "should recognize method and urls" do
+      tokens = @lexer.tokenize("post /users")
+      tokens.must_equal [[:METHOD, "post"],[:URL, "/users"]]
+    end
+
+ end
 
   describe "query params" do
 

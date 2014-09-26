@@ -21,7 +21,8 @@ class Lexer
     "@query",
     "@header",
     "@path",
-    "optional"
+    "optional",
+    "@name"
   ]
 
   TYPES = [

@@ -12,6 +12,10 @@ class Nodes < Struct.new :nodes
     get_nodes type: PathNode
   end
 
+  def name_node
+    get_nodes(type: NameNode).first
+  end
+
   def get_nodes(type:nil)
     nodes[1].select { |i| i.first.is_a? type }
   end
@@ -31,5 +35,7 @@ class HeaderNode < Struct.new :name, :value; end
 class UrlMethod < Struct.new :method, :url; end
 
 class PathNode < Struct.new :type, :name; end
+
+class NameNode < Struct.new  :name; end
 
 

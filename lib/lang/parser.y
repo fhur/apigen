@@ -9,6 +9,7 @@ class Parser
   token PATH
   token HEADER
   token OPTIONAL
+  token NAME
   token TYPE
   token METHOD
   token URL
@@ -33,7 +34,10 @@ rule
   param             : path_param { result = val }
                     | query_param { result = val }
                     | header_param { result = val }
+                    | endpoint_name { result = val }
                     ;
+
+  endpoint_name     : NAME IDENTIFIER { result = NameNode.new val[1] }
 
   type_structure    : BRACE TYPE BRACE { result = TypeNode.new val[1], true }
                     | BRACE TYPE COLON OPTIONAL BRACE { result = TypeNode.new val[1], false }

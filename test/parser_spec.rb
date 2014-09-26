@@ -31,6 +31,7 @@ describe Parser do
         ]
       ])
       @parser.parse(code).must_equal nodes
+      @parser.parse(code).path_nodes.size.must_equal 2
     end
 
     it "should recognize single path params" do
@@ -44,6 +45,40 @@ describe Parser do
         ]
       ]
       @parser.parse(code).must_equal nodes
+    end
+
+    it "should recognize query params" do
+      code = """
+      delete /users/{id}
+      @path {int} id
+      @query {string} name
+      """
+      nodes = Nodes.new [
+        UrlMethod.new("delete", "/users/{id}"), [
+          [PathNode.new(TypeNode.new("int", true), "id")],
+          [QueryNode.new(TypeNode.new("string", true), "name")]
+        ]
+      ]
+      @parser.parse(code).must_equal nodes
+
+    end
+
+    it "should recognize optional query params" do
+      code = """
+      delete /users/{id}
+      @path {int} id
+      @query {string} name
+      @query {boolean:optional} sort
+      """
+      nodes = Nodes.new [
+        UrlMethod.new("delete", "/users/{id}"), [
+          [PathNode.new(TypeNode.new("int", true), "id")],
+          [QueryNode.new(TypeNode.new("string", true), "name")],
+          [QueryNode.new(TypeNode.new("boolean", false), "sort")]
+        ]
+      ]
+      @parser.parse(code).must_equal nodes
+
     end
 
   end

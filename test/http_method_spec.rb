@@ -49,5 +49,14 @@ describe HttpMethod do
 
   end
 
+  describe "create" do
+    it "should return the correct method" do
+      HttpMethod.create(:get).must_equal HttpMethod.get
+      HttpMethod.create(:post).must_equal HttpMethod.post
+      HttpMethod.create(:put).must_equal HttpMethod.put
+      HttpMethod.create(:delete).must_equal HttpMethod.delete
+    end
+  end
+
 end
 

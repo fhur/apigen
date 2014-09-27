@@ -24,6 +24,14 @@ class HttpMethod
     HttpMethod.new name: :put, has_body: true
   end
 
+  def HttpMethod.create(method_name)
+    HttpMethod.send(method_name)
+  end
+
+  def ==(other)
+    self.name == other.name and self.has_body == other.has_body
+  end
+
 end
 
 

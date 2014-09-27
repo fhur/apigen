@@ -12,7 +12,7 @@ require 'racc/parser.rb'
 
 class Parser < Racc::Parser
 
-module_eval(<<'...end parser.y/module_eval...', 'parser.y', 61)
+module_eval(<<'...end parser.y/module_eval...', 'parser.y', 65)
 
   def parse(code, show_tokens=false)
     @tokens = Lexer.new.tokenize(code) # Tokenize the code using our lexer
@@ -28,58 +28,64 @@ module_eval(<<'...end parser.y/module_eval...', 'parser.y', 61)
 ##### State transition tables begin ###
 
 racc_action_table = [
-    12,    11,    13,    12,    11,    13,    26,    25,    20,    15,
-     4,    17,    17,    14,    21,    22,    23,    24,     5,    27,
-    28 ]
+    14,    13,    15,    20,    12,    14,    13,    15,    17,    12,
+    29,    28,     4,    19,    20,    16,    23,    24,    25,    26,
+    27,     5,    30,    31 ]
 
 racc_action_check = [
-     3,     3,     3,     6,     6,     6,    21,    21,    13,     5,
-     0,    11,    12,     4,    17,    18,    19,    20,     1,    26,
-    27 ]
+     3,     3,     3,    14,     3,     6,     6,     6,     5,     6,
+    24,    24,     0,    12,    13,     4,    15,    20,    21,    22,
+    23,     1,    29,    30 ]
 
 racc_action_pointer = [
-     2,    18,   nil,    -3,     4,     9,     0,   nil,   nil,   nil,
-   nil,     0,     1,    -4,   nil,   nil,   nil,     7,     3,     4,
-     5,    -4,   nil,   nil,   nil,   nil,    13,     9,   nil ]
+     3,    21,   nil,    -3,     5,     8,     2,   nil,   nil,   nil,
+   nil,   nil,     0,     2,    -9,     3,   nil,   nil,   nil,   nil,
+     9,     5,     6,     7,    -1,   nil,   nil,   nil,   nil,    16,
+    11,   nil ]
 
 racc_action_default = [
-    -1,   -16,    -2,    -3,   -16,   -16,    -4,    -5,    -7,    -8,
-    -9,   -16,   -16,   -16,   -15,    29,    -6,   -16,   -16,   -16,
-   -16,   -16,   -12,   -13,   -14,   -10,   -16,   -16,   -11 ]
+    -1,   -18,    -2,    -3,   -18,   -18,    -4,    -5,    -7,    -8,
+    -9,   -10,   -18,   -18,   -18,   -18,   -17,    32,    -6,   -11,
+   -18,   -18,   -18,   -18,   -18,   -14,   -15,   -16,   -12,   -18,
+   -18,   -13 ]
 
 racc_goto_table = [
-     7,    18,    19,    16,     6,     3,     2,     1 ]
+     7,    21,    22,    18,     6,     3,     2,     1 ]
 
 racc_goto_check = [
-     5,     9,     9,     5,     4,     3,     2,     1 ]
+     5,    10,    10,     5,     4,     3,     2,     1 ]
 
 racc_goto_pointer = [
-   nil,     7,     6,     5,     1,    -3,   nil,   nil,   nil,   -10 ]
+   nil,     7,     6,     5,     1,    -3,   nil,   nil,   nil,   nil,
+   -12 ]
 
 racc_goto_default = [
-   nil,   nil,   nil,   nil,   nil,   nil,     8,     9,    10,   nil ]
+   nil,   nil,   nil,   nil,   nil,   nil,     8,     9,    10,    11,
+   nil ]
 
 racc_reduce_table = [
   0, 0, :racc_error,
-  0, 14, :_reduce_1,
-  1, 14, :_reduce_2,
-  1, 15, :_reduce_3,
-  2, 15, :_reduce_4,
-  1, 17, :_reduce_5,
-  2, 17, :_reduce_6,
-  1, 18, :_reduce_7,
-  1, 18, :_reduce_8,
-  1, 18, :_reduce_9,
-  3, 22, :_reduce_10,
-  5, 22, :_reduce_11,
-  3, 19, :_reduce_12,
-  3, 20, :_reduce_13,
-  3, 21, :_reduce_14,
-  2, 16, :_reduce_15 ]
+  0, 15, :_reduce_1,
+  1, 15, :_reduce_2,
+  1, 16, :_reduce_3,
+  2, 16, :_reduce_4,
+  1, 18, :_reduce_5,
+  2, 18, :_reduce_6,
+  1, 19, :_reduce_7,
+  1, 19, :_reduce_8,
+  1, 19, :_reduce_9,
+  1, 19, :_reduce_10,
+  2, 23, :_reduce_11,
+  3, 24, :_reduce_12,
+  5, 24, :_reduce_13,
+  3, 20, :_reduce_14,
+  3, 21, :_reduce_15,
+  3, 22, :_reduce_16,
+  2, 17, :_reduce_17 ]
 
-racc_reduce_n = 16
+racc_reduce_n = 18
 
-racc_shift_n = 29
+racc_shift_n = 32
 
 racc_token_table = {
   false => 0,
@@ -89,14 +95,15 @@ racc_token_table = {
   :PATH => 4,
   :HEADER => 5,
   :OPTIONAL => 6,
-  :TYPE => 7,
-  :METHOD => 8,
-  :URL => 9,
-  :COLON => 10,
-  :BRACE => 11,
-  :IDENTIFIER => 12 }
+  :NAME => 7,
+  :TYPE => 8,
+  :METHOD => 9,
+  :URL => 10,
+  :COLON => 11,
+  :BRACE => 12,
+  :IDENTIFIER => 13 }
 
-racc_nt_base = 13
+racc_nt_base = 14
 
 racc_use_result_var = true
 
@@ -124,6 +131,7 @@ Racc_token_to_s_table = [
   "PATH",
   "HEADER",
   "OPTIONAL",
+  "NAME",
   "TYPE",
   "METHOD",
   "URL",
@@ -139,6 +147,7 @@ Racc_token_to_s_table = [
   "path_param",
   "query_param",
   "header_param",
+  "endpoint_name",
   "type_structure" ]
 
 Racc_debug_parser = true
@@ -147,106 +156,120 @@ Racc_debug_parser = true
 
 # reduce 0 omitted
 
-module_eval(<<'.,.,', 'parser.y', 20)
+module_eval(<<'.,.,', 'parser.y', 21)
   def _reduce_1(val, _values, result)
      result = Nodes.new([]) 
     result
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.y', 21)
+module_eval(<<'.,.,', 'parser.y', 22)
   def _reduce_2(val, _values, result)
      result = Nodes.new val[0] 
     result
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.y', 24)
+module_eval(<<'.,.,', 'parser.y', 25)
   def _reduce_3(val, _values, result)
      result = val 
     result
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.y', 25)
+module_eval(<<'.,.,', 'parser.y', 26)
   def _reduce_4(val, _values, result)
      result = val 
     result
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.y', 28)
+module_eval(<<'.,.,', 'parser.y', 29)
   def _reduce_5(val, _values, result)
      result = val 
     result
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.y', 29)
+module_eval(<<'.,.,', 'parser.y', 30)
   def _reduce_6(val, _values, result)
      result = val[0] << val[1] 
     result
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.y', 32)
+module_eval(<<'.,.,', 'parser.y', 33)
   def _reduce_7(val, _values, result)
      result = val 
     result
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.y', 33)
+module_eval(<<'.,.,', 'parser.y', 34)
   def _reduce_8(val, _values, result)
      result = val 
     result
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.y', 34)
+module_eval(<<'.,.,', 'parser.y', 35)
   def _reduce_9(val, _values, result)
      result = val 
     result
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.y', 37)
+module_eval(<<'.,.,', 'parser.y', 36)
   def _reduce_10(val, _values, result)
-     result = TypeNode.new val[1], true 
+     result = val 
     result
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.y', 38)
+module_eval(<<'.,.,', 'parser.y', 39)
   def _reduce_11(val, _values, result)
-     result = TypeNode.new val[1], false 
+     result = NameNode.new val[1] 
     result
   end
 .,.,
 
 module_eval(<<'.,.,', 'parser.y', 41)
   def _reduce_12(val, _values, result)
+     result = TypeNode.new val[1], true 
+    result
+  end
+.,.,
+
+module_eval(<<'.,.,', 'parser.y', 42)
+  def _reduce_13(val, _values, result)
+     result = TypeNode.new val[1], false 
+    result
+  end
+.,.,
+
+module_eval(<<'.,.,', 'parser.y', 45)
+  def _reduce_14(val, _values, result)
      result = PathNode.new(val[1], val[2]) 
     result
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.y', 44)
-  def _reduce_13(val, _values, result)
+module_eval(<<'.,.,', 'parser.y', 48)
+  def _reduce_15(val, _values, result)
      result = QueryNode.new(val[1], val[2]) 
     result
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.y', 47)
-  def _reduce_14(val, _values, result)
+module_eval(<<'.,.,', 'parser.y', 51)
+  def _reduce_16(val, _values, result)
      result = HeaderNode.new(val[1], val[2]) 
     result
   end
 .,.,
 
-module_eval(<<'.,.,', 'parser.y', 50)
-  def _reduce_15(val, _values, result)
+module_eval(<<'.,.,', 'parser.y', 54)
+  def _reduce_17(val, _values, result)
      result = UrlMethod.new val[0], val[1] 
     result
   end

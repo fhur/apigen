@@ -81,6 +81,26 @@ describe Parser do
 
     end
 
+    it "should recognize @name params" do
+      code = """
+      delete /users/{id}
+      @name filter_user
+      @path {int} id
+      @query {string} name
+      @query {boolean:optional} sort
+      """
+      nodes = Nodes.new [
+        UrlMethod.new("delete", "/users/{id}"), [
+          [NameNode.new("filter_user")],
+          [PathNode.new(TypeNode.new("int", true), "id")],
+          [QueryNode.new(TypeNode.new("string", true), "name")],
+          [QueryNode.new(TypeNode.new("boolean", false), "sort")]
+        ]
+      ]
+      @parser.parse(code).must_equal nodes
+
+   end
+
   end
 
 end

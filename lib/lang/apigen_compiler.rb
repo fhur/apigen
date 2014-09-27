@@ -12,28 +12,29 @@ class ApigenCompiler
     @parser = Parser.new
   end
 
-  def compile(code, endpoint_name="")
+  def compile(code)
     nodes = @parser.parse(code)
-    url_method_node = nodes.first
-    params = nodes[1]
-    if params
-      params.each do |node_param|
-        param = get_param(node_param)
-      end
-    end
-    return Endpoint.new method: url_method_node.method, url: url_method_node.url, name: endpoint_name
-  end
+    url_method_node = nodes.url_method
+    method = HttpMethod.create(url_method_node.method.to_sym)
+    url = url_method_node.url
+    name = nodes.name_node.name
+    endpoint = Endpoint.new url: url, method: method, name: name
 
-  def get_param(node_param)
-    if param.is_a? QueryNode
-      QueryParam.new name: param.name, type: param.type
-    elsif param.is_a? HeaderNode
-      Header.new name: param.name, value: param.value
-    elsif param.is_a? PathNode
-      PathParam.new name: param.name, type: param.type
-    else
-      raise "Unrecognized #{node_param}"
+    nodes.query_nodes.each do |query_node|
+      type = query_node.type.type
+      endpoint.put_query_param(QueryParam.new name: query_node.name, type: type)
     end
+
+    nodes.path_nodes.each do |path_nodes|
+      type = path_nodes.type.type
+      endpoint.put_path_param(PathParam.new name: path_nodes.name, type: type)
+    end
+
+    nodes.header_nodes.each do |header_node|
+      endpoint.put_header(Header.new name: header_node.name, value: header_node.value)
+    end
+
+    return endpoint
   end
 
 end

@@ -12,8 +12,8 @@ class ApigenCompiler
     @parser = Parser.new
   end
 
-  def compile(*code)
-    code.map do |code|
+  def compile(*codes)
+    codes.map do |code|
       nodes = @parser.parse(code)
       url_method_node = nodes.url_method
       method = HttpMethod.create(url_method_node.method.to_sym)

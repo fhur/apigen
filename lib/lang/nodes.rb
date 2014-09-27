@@ -17,7 +17,9 @@ class Nodes < Struct.new :nodes
   end
 
   def get_nodes(type:nil)
-    nodes[1].select { |i| i.first.is_a? type }
+    nodes[1]
+      .select { |i| i.first.is_a? type }
+      .map { |i| i.first }
   end
 
   def url_method

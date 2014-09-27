@@ -16,10 +16,10 @@ class Nodes < Struct.new :nodes
     get_nodes(type: NameNode).first
   end
 
-  def get_nodes(type:nil)
+  def get_nodes(type: nil)
     nodes[1]
-      .select { |i| i.first.is_a? type }
       .map { |i| i.first }
+      .select { |node| node.is_a? type }
   end
 
   def url_method

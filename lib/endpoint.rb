@@ -65,5 +65,10 @@ class Endpoint
     @query_params[query_param.name] = query_param
   end
 
+  def put_path_param(path_param)
+    @path_params[path_param.name] = path_param
+  end
+
+
 end
 

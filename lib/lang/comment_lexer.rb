@@ -5,6 +5,7 @@
 # COMMENT_START: Indicates the start of a comment. In languages like Java this should be /** or /*
 # COMMENT_END: Indicates the termination of a comment.
 # IDENTIFIER: Any non whitespace 'word' that is not a COMMENT_LINE, COMMENT_START or COMMENT_END
+# NEW_LINE: matches \n
 #
 # Whitespace and line ends are ignored
 class CommentLexer
@@ -61,6 +62,7 @@ class CommentLexer
 
       # skip \n
       elsif chunk.match(/\A\n/)
+        tokens << [:NEW_LINE, 'n']
         i += 1
 
       # if nothing matches, throw an error

@@ -32,6 +32,10 @@ class HttpMethod
     self.name == other.name and self.has_body == other.has_body
   end
 
+  def inspect
+    "name: #{name}, body: #{has_body}"
+  end
+
 end
 
 

@@ -28,25 +28,41 @@ class CommentLexer
     code.chomp!
     tokens = [] # every token is a [:name, :value] pair
     i = 0 # hold the current index
+
+    # If true, it means that all subsequent tokens are part of the comment
+    # The rules for is_commenting are as follows:
+    # 1. If start_regex is found, everything is a comment until
+    # end_regex is found
+    # 2. If line_regex is found, everything is a comment until "\n" is found
+    is_line_commenting = false
+    is_block_commenting = false
+
     while i < code.size
       chunk = code[i..-1]
 
-      # First we will match all keywords
-      # i.e. @query, @param, @header, @path
+      if is_line_commenting
+        is_line_commenting = false
+        if comment = chunk[/\A((.+)\n)/, 1]
+          tokens << [:COMMENT, comment]
+          i += comment.size
+        else
+          tokens << [:COMMENT, chunk]
+          i += chunk.size
+        end
+      end
+
       if comment_start = chunk[@start_regex, 1]
         tokens << [:COMMENT_START, comment_start]
+        is_block_commenting = true
         i += comment_start.size
 
-      # Now we match http methods
-      # get, post, put, delete, etc.
       elsif comment_end = chunk[@end_regex, 1]
         tokens << [:COMMENT_END, comment_end]
+        is_block_commenting = false
         i += comment_end.size
 
-      # Now we match urls
-      # Urls are all strings starting
-      # with / up to the last non whitespace character
       elsif comment_line = chunk[@line_regex, 1]
+        is_line_commenting = true
         tokens << [:COMMENT_LINE, comment_line]
         i += comment_line.size
 

@@ -30,12 +30,12 @@ describe CommentLexer do
       tokens = @lexer.tokenize(code)
       tokens.must_equal [
         [:NEW_LINE, 'n'],
-        [:COMMENT_LINE, "#"], [:COMMENT, " foo\n"],
-        [:COMMENT_LINE, "#"], [:COMMENT, " bar baz\n"],
-        [:COMMENT_LINE, "#"], [:COMMENT, " baz\n"],
+        [:COMMENT_LINE, "#"], [:COMMENT, " foo"], [:NEW_LINE, 'n'],
+        [:COMMENT_LINE, "#"], [:COMMENT, " bar baz"], [:NEW_LINE, 'n'],
+        [:COMMENT_LINE, "#"], [:COMMENT, " baz"], [:NEW_LINE, 'n'],
         [:IDENTIFIER, "def"], [:IDENTIFIER, "some_method()"], [:NEW_LINE, 'n'],
         [:IDENTIFIER, "end"], [:NEW_LINE, 'n'],
-        [:COMMENT_LINE, "#"], [:COMMENT, " fee\n"]
+        [:COMMENT_LINE, "#"], [:COMMENT, " fee"], [:NEW_LINE, 'n']
       ]
     end
 
@@ -49,7 +49,7 @@ describe CommentLexer do
       tokens.must_equal [
         [:NEW_LINE, 'n'],
         [:IDENTIFIER, "def"], [:IDENTIFIER, "some_method(arg)"], [:NEW_LINE, 'n'],
-        [:COMMENT_LINE, "#"], [:COMMENT, " this method does something\n"],
+        [:COMMENT_LINE, "#"], [:COMMENT, " this method does something"], [:NEW_LINE, 'n'],
         [:IDENTIFIER, "end"], [:NEW_LINE, 'n']
       ]
     end

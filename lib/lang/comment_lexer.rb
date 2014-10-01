@@ -43,7 +43,8 @@ class CommentLexer
       if is_line_commenting
         is_line_commenting = false
         if comment = chunk[/\A((.+)\n)/, 1]
-          tokens << [:COMMENT, comment]
+          tokens << [:COMMENT, comment.gsub("\n", "")]
+          tokens << [:NEW_LINE, 'n']
           i += comment.size
         else
           tokens << [:COMMENT, chunk]

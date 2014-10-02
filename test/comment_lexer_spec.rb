@@ -53,6 +53,88 @@ describe CommentLexer do
         [:IDENTIFIER, "end"], [:NEW_LINE, 'n']
       ]
     end
+
+    it "should tokenize new lines" do
+      code = """
+      # some comment
+      # second line of that comment
+
+      # some other comment
+      # second line of that comment
+      """
+      tokens = @lexer.tokenize code
+      tokens.must_equal [
+        [:NEW_LINE, 'n'],
+        [:COMMENT_LINE, '#'], [:COMMENT, " some comment"], [:NEW_LINE, 'n'],
+        [:COMMENT_LINE, '#'], [:COMMENT, " second line of that comment"], [:NEW_LINE, 'n'],
+        [:NEW_LINE, 'n'],
+        [:COMMENT_LINE, '#'], [:COMMENT, " some other comment"], [:NEW_LINE, 'n'],
+        [:COMMENT_LINE, '#'], [:COMMENT, " second line of that comment"], [:NEW_LINE, 'n']
+      ]
+    end
+
+    it "should tokenize new lines after identifiers" do
+      code = """
+      # some comment line
+      def some_code_here
+      end
+
+      # some other comment line
+      # last comment line
+      def last_code_here
+      end
+      """
+      tokens = @lexer.tokenize code
+      tokens.must_equal [
+        [:NEW_LINE, 'n'],
+        [:COMMENT_LINE, '#'], [:COMMENT, " some comment line"], [:NEW_LINE, 'n'],
+        [:IDENTIFIER, "def"], [:IDENTIFIER, "some_code_here"], [:NEW_LINE, 'n'],
+        [:IDENTIFIER, "end"],
+        [:NEW_LINE, 'n'],
+        [:COMMENT_LINE, '#'], [:COMMENT, " some other comment line"], [:NEW_LINE, 'n'],
+        [:COMMENT_LINE, '#'], [:COMMENT, " last comment line"], [:NEW_LINE, 'n'],
+        [:IDENTIFIER, "def"], [:IDENTIFIER, "last_code_here"],
+        [:IDENTIFIER, "end"]
+      ]
+    end
+
+    it "should tokenize multi line comments" do
+      code = """
+      # first line
+      # second line
+      # this is the third line
+      # last line
+      def some_method()
+        puts 'method'
+      end
+
+      # some documentation here
+      # and some more here
+      # last line of doc
+      def some_other_method()
+        some_method()
+      end
+      """
+      tokens = @lexer.tokenize code
+      tokens.must_equal [
+        [:NEW_LINE, 'n'],
+        [:COMMENT_LINE, '#'], [:COMMENT, " first line"], [:NEW_LINE, 'n'],
+        [:COMMENT_LINE, '#'], [:COMMENT, " second line"], [:NEW_LINE, 'n'],
+        [:COMMENT_LINE, '#'], [:COMMENT, " this is the third line"], [:NEW_LINE, 'n'],
+        [:COMMENT_LINE, '#'], [:COMMENT, " last line"], [:NEW_LINE, 'n'],
+        [:IDENTIFIER, "def"], [:IDENTIFIER, "some_method()"], [:NEW_LINE, 'n'],
+        [:IDENTIFIER, 'puts'], [:IDENTIFIER, "'method'"], [:NEW_LINE, 'n'],
+        [:NEW_LINE, 'n'],
+        [:COMMENT_LINE, '#'], [:COMMENT, " some documentation here"], [:NEW_LINE, 'n'],
+        [:COMMENT_LINE, '#'], [:COMMENT, " and some more here"], [:NEW_LINE, 'n'],
+        [:COMMENT_LINE, '#'], [:COMMENT, " last line of doc"], [:NEW_LINE, 'n'],
+        [:IDENTIFIER, 'def'],  [:IDENTIFIER, 'some_other_method()'], [:NEW_LINE, 'n'],
+        [:IDENTIFIER, 'some_method()'], [:NEW_LINE, 'n'],
+        [:IDENTIFIER, 'end']
+      ]
+
+    end
+
   end
 
   describe "java comments" do

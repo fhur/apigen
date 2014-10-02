@@ -89,12 +89,12 @@ describe CommentLexer do
         [:NEW_LINE, 'n'],
         [:COMMENT_LINE, '#'], [:COMMENT, " some comment line"], [:NEW_LINE, 'n'],
         [:IDENTIFIER, "def"], [:IDENTIFIER, "some_code_here"], [:NEW_LINE, 'n'],
-        [:IDENTIFIER, "end"],
+        [:IDENTIFIER, "end"], [:NEW_LINE, 'n'],
         [:NEW_LINE, 'n'],
         [:COMMENT_LINE, '#'], [:COMMENT, " some other comment line"], [:NEW_LINE, 'n'],
         [:COMMENT_LINE, '#'], [:COMMENT, " last comment line"], [:NEW_LINE, 'n'],
-        [:IDENTIFIER, "def"], [:IDENTIFIER, "last_code_here"],
-        [:IDENTIFIER, "end"]
+        [:IDENTIFIER, "def"], [:IDENTIFIER, "last_code_here"], [:NEW_LINE, 'n'],
+        [:IDENTIFIER, "end"], [:NEW_LINE, 'n']
       ]
     end
 
@@ -124,13 +124,14 @@ describe CommentLexer do
         [:COMMENT_LINE, '#'], [:COMMENT, " last line"], [:NEW_LINE, 'n'],
         [:IDENTIFIER, "def"], [:IDENTIFIER, "some_method()"], [:NEW_LINE, 'n'],
         [:IDENTIFIER, 'puts'], [:IDENTIFIER, "'method'"], [:NEW_LINE, 'n'],
+        [:IDENTIFIER, 'end'], [:NEW_LINE, 'n'],
         [:NEW_LINE, 'n'],
         [:COMMENT_LINE, '#'], [:COMMENT, " some documentation here"], [:NEW_LINE, 'n'],
         [:COMMENT_LINE, '#'], [:COMMENT, " and some more here"], [:NEW_LINE, 'n'],
         [:COMMENT_LINE, '#'], [:COMMENT, " last line of doc"], [:NEW_LINE, 'n'],
         [:IDENTIFIER, 'def'],  [:IDENTIFIER, 'some_other_method()'], [:NEW_LINE, 'n'],
         [:IDENTIFIER, 'some_method()'], [:NEW_LINE, 'n'],
-        [:IDENTIFIER, 'end']
+        [:IDENTIFIER, 'end'], [:NEW_LINE, 'n']
       ]
 
     end

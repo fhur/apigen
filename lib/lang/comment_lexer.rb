@@ -18,7 +18,7 @@ class CommentLexer
   # @param {regex} line_regex a regex that matches the comment lines.
   # @param {regex} start_regex a regex that matches the start of a comment block.
   # @param {regex} end_regex a regex that matches the termination of a comment block.
-  def initialize(line_regex:nil, start_regex:nil, end_regex:nil)
+  def initialize(line_regex:/\A(#)/, start_regex:/\A(=begin)/, end_regex:/\A(=end)/)
     @line_regex = line_regex
     @start_regex = start_regex
     @end_regex = end_regex
@@ -34,36 +34,23 @@ class CommentLexer
     # 1. If start_regex is found, everything is a comment until
     # end_regex is found
     # 2. If line_regex is found, everything is a comment until "\n" is found
-    is_line_commenting = false
-    is_block_commenting = false
+    line_commenting = false
+    block_commenting = false
 
     while i < code.size
       chunk = code[i..-1]
 
-      if is_line_commenting
-        is_line_commenting = false
-        if comment = chunk[/\A((.+)\n)/, 1]
-          tokens << [:COMMENT, comment.gsub("\n", "")]
-          tokens << [:NEW_LINE, 'n']
-          i += comment.size
-        else
-          tokens << [:COMMENT, chunk]
-          i += chunk.size
-        end
-      end
-
-      if comment_start = chunk[@start_regex, 1]
-        tokens << [:COMMENT_START, comment_start]
-        is_block_commenting = true
-        i += comment_start.size
-
-      elsif comment_end = chunk[@end_regex, 1]
-        tokens << [:COMMENT_END, comment_end]
-        is_block_commenting = false
-        i += comment_end.size
-
+      if line_commenting and comment = chunk[/\A((.+)\n)/, 1]
+        line_commenting = false
+        comment = comment.gsub("\n", "")
+        tokens << [:COMMENT, comment]
+        i += comment.size
+      elsif line_commenting and comment = chunk[/\A(.+$)/, 1]
+        line_commenting = false
+        tokens << [:COMMENT, comment]
+        i += comment.size
       elsif comment_line = chunk[@line_regex, 1]
-        is_line_commenting = true
+        line_commenting = true
         tokens << [:COMMENT_LINE, comment_line]
         i += comment_line.size
 
@@ -78,9 +65,9 @@ class CommentLexer
         i += 1
 
       # skip \n
-      elsif chunk.match(/\A\n/)
+      elsif new_line = chunk[/\A(\n)/, 1]
         tokens << [:NEW_LINE, 'n']
-        i += 1
+        i += new_line.size
 
       # if nothing matches, throw an error
       else

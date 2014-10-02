@@ -1,5 +1,7 @@
+`racc -g ./lib/lang/comment_parser.y`
 require 'minitest/autorun'
 require './lib/lang/comment_parser.tab.rb'
+
 
 describe CommentParser do
 
@@ -15,9 +17,7 @@ describe CommentParser do
       """
       tokens = @parser.parse code
       tokens.must_equal [
-        [
-          ["comment", "line"]
-        ]
+          [" comment line"]
       ]
     end
 

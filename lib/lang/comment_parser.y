@@ -10,6 +10,7 @@ class CommentParser
   token IDENTIFIER
   token COMMENT
   token NEW_LINE
+  token EOF
 
 rule
 
@@ -25,6 +26,7 @@ rule
 
   comment           : COMMENT_START COMMENT COMMENT_END { result = val[1] }
                     | COMMENT_LINE COMMENT NEW_LINE { result = val[1] }
+                    | COMMENT_LINE COMMENT EOF { result = val[1] }
 
 
 

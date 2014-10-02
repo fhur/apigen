@@ -13,7 +13,8 @@ describe CommentLexer do
       code = "# single comment line"
       tokens = @lexer.tokenize code
       tokens.must_equal [
-        [:COMMENT_LINE, "#"], [:COMMENT, " single comment line"]
+        [:COMMENT_LINE, "#"], [:COMMENT, " single comment line"],
+        [:EOF, 'eof']
       ]
     end
 
@@ -35,7 +36,8 @@ describe CommentLexer do
         [:COMMENT_LINE, "#"], [:COMMENT, " baz"], [:NEW_LINE, 'n'],
         [:IDENTIFIER, "def"], [:IDENTIFIER, "some_method()"], [:NEW_LINE, 'n'],
         [:IDENTIFIER, "end"], [:NEW_LINE, 'n'],
-        [:COMMENT_LINE, "#"], [:COMMENT, " fee"], [:NEW_LINE, 'n']
+        [:COMMENT_LINE, "#"], [:COMMENT, " fee"], [:NEW_LINE, 'n'],
+        [:EOF, 'eof']
       ]
     end
 
@@ -50,7 +52,8 @@ describe CommentLexer do
         [:NEW_LINE, 'n'],
         [:IDENTIFIER, "def"], [:IDENTIFIER, "some_method(arg)"], [:NEW_LINE, 'n'],
         [:COMMENT_LINE, "#"], [:COMMENT, " this method does something"], [:NEW_LINE, 'n'],
-        [:IDENTIFIER, "end"], [:NEW_LINE, 'n']
+        [:IDENTIFIER, "end"], [:NEW_LINE, 'n'],
+        [:EOF, 'eof']
       ]
     end
 
@@ -69,7 +72,8 @@ describe CommentLexer do
         [:COMMENT_LINE, '#'], [:COMMENT, " second line of that comment"], [:NEW_LINE, 'n'],
         [:NEW_LINE, 'n'],
         [:COMMENT_LINE, '#'], [:COMMENT, " some other comment"], [:NEW_LINE, 'n'],
-        [:COMMENT_LINE, '#'], [:COMMENT, " second line of that comment"], [:NEW_LINE, 'n']
+        [:COMMENT_LINE, '#'], [:COMMENT, " second line of that comment"], [:NEW_LINE, 'n'],
+        [:EOF, 'eof']
       ]
     end
 
@@ -94,7 +98,8 @@ describe CommentLexer do
         [:COMMENT_LINE, '#'], [:COMMENT, " some other comment line"], [:NEW_LINE, 'n'],
         [:COMMENT_LINE, '#'], [:COMMENT, " last comment line"], [:NEW_LINE, 'n'],
         [:IDENTIFIER, "def"], [:IDENTIFIER, "last_code_here"], [:NEW_LINE, 'n'],
-        [:IDENTIFIER, "end"], [:NEW_LINE, 'n']
+        [:IDENTIFIER, "end"], [:NEW_LINE, 'n'],
+        [:EOF, 'eof']
       ]
     end
 
@@ -131,7 +136,8 @@ describe CommentLexer do
         [:COMMENT_LINE, '#'], [:COMMENT, " last line of doc"], [:NEW_LINE, 'n'],
         [:IDENTIFIER, 'def'],  [:IDENTIFIER, 'some_other_method()'], [:NEW_LINE, 'n'],
         [:IDENTIFIER, 'some_method()'], [:NEW_LINE, 'n'],
-        [:IDENTIFIER, 'end'], [:NEW_LINE, 'n']
+        [:IDENTIFIER, 'end'], [:NEW_LINE, 'n'],
+        [:EOF, 'eof']
       ]
 
     end

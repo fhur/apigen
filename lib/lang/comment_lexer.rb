@@ -74,6 +74,8 @@ class CommentLexer
         raise "Could not match '#{chunk}'"
       end
     end
+
+    tokens << [:EOF, 'eof']
     return tokens
   end
 

@@ -15,18 +15,22 @@ class CommentParser
 rule
 
   program           : /* nothing */ { result = [] }
-                    | expressions   { result = val }
+                    | expressions   { result = val[0] }
                     ;
 
   expressions       : expressions comment { result = val[0] << val[1] }
                     | comment { result = val }
-                    | expressions IDENTIFIER { result = val[0] }
-                    | expressions NEW_LINE { result = val[0] }
+                    | expressions non_comment { result = val[0] + "\n" }
+                    | non_comment { result = "\n" }
                     ;
 
   comment           : COMMENT_START COMMENT COMMENT_END { result = val[1] }
-                    | COMMENT_LINE COMMENT NEW_LINE { result = val[1] }
+                    | COMMENT_LINE COMMENT NEW_LINE { result = val[1] + "\n" }
                     | COMMENT_LINE COMMENT EOF { result = val[1] }
+
+  non_comment       : EOF
+                    | IDENTIFIER
+                    | NEW_LINE
 
 
 

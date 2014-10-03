@@ -11,7 +11,7 @@ require 'racc/parser.rb'
 
 class CommentParser < Racc::Parser
 
-module_eval(<<'...end comment_parser.y/module_eval...', 'comment_parser.y', 38)
+module_eval(<<'...end comment_parser.y/module_eval...', 'comment_parser.y', 42)
 
   def parse(code, show_tokens=false)
     @tokens = CommentLexer.new.tokenize(code) # Tokenize the code using our lexer
@@ -26,32 +26,32 @@ module_eval(<<'...end comment_parser.y/module_eval...', 'comment_parser.y', 38)
 ##### State transition tables begin ###
 
 racc_action_table = [
-     5,     4,    10,     8,     6,     9,     5,     4,    14,    15,
-    12,    13,    11 ]
+     6,     5,    13,     8,    10,     9,     7,     6,     5,    15,
+     8,    16,     9,     7,    17,    18,    14 ]
 
 racc_action_check = [
-     2,     2,     4,     2,     1,     2,     0,     0,    11,    11,
-     6,    10,     5 ]
+     0,     0,     5,     0,     1,     0,     0,     2,     2,    10,
+     2,    13,     2,     2,    14,    14,     6 ]
 
 racc_action_pointer = [
-     4,     4,    -2,   nil,    -4,     6,    10,   nil,   nil,   nil,
-     7,     1,   nil,   nil,   nil,   nil ]
+    -2,     4,     5,   nil,   nil,    -4,    10,   nil,   nil,   nil,
+     9,   nil,   nil,     7,     7,   nil,   nil,   nil,   nil ]
 
 racc_action_default = [
-    -1,   -10,    -2,    -4,   -10,   -10,   -10,    -3,    -5,    -6,
-   -10,   -10,    16,    -7,    -8,    -9 ]
+    -1,   -13,    -2,    -4,    -6,   -13,   -13,   -10,   -11,   -12,
+   -13,    -3,    -5,   -13,   -13,    19,    -7,    -8,    -9 ]
 
 racc_goto_table = [
-     3,     2,     7,     1 ]
+     4,     3,    12,    11,     2,     1 ]
 
 racc_goto_check = [
-     3,     2,     3,     1 ]
+     4,     3,     4,     3,     2,     1 ]
 
 racc_goto_pointer = [
-   nil,     3,     1,     0 ]
+   nil,     5,     4,     1,     0 ]
 
 racc_goto_default = [
-   nil,   nil,   nil,   nil ]
+   nil,   nil,   nil,   nil,   nil ]
 
 racc_reduce_table = [
   0, 0, :racc_error,
@@ -60,14 +60,17 @@ racc_reduce_table = [
   2, 11, :_reduce_3,
   1, 11, :_reduce_4,
   2, 11, :_reduce_5,
-  2, 11, :_reduce_6,
+  1, 11, :_reduce_6,
   3, 12, :_reduce_7,
   3, 12, :_reduce_8,
-  3, 12, :_reduce_9 ]
+  3, 12, :_reduce_9,
+  1, 13, :_reduce_none,
+  1, 13, :_reduce_none,
+  1, 13, :_reduce_none ]
 
-racc_reduce_n = 10
+racc_reduce_n = 13
 
-racc_shift_n = 16
+racc_shift_n = 19
 
 racc_token_table = {
   false => 0,
@@ -113,7 +116,8 @@ Racc_token_to_s_table = [
   "$start",
   "program",
   "expressions",
-  "comment" ]
+  "comment",
+  "non_comment" ]
 
 Racc_debug_parser = true
 
@@ -130,7 +134,7 @@ module_eval(<<'.,.,', 'comment_parser.y', 16)
 
 module_eval(<<'.,.,', 'comment_parser.y', 17)
   def _reduce_2(val, _values, result)
-     result = val 
+     result = val[0] 
     result
   end
 .,.,
@@ -151,14 +155,14 @@ module_eval(<<'.,.,', 'comment_parser.y', 21)
 
 module_eval(<<'.,.,', 'comment_parser.y', 22)
   def _reduce_5(val, _values, result)
-     result = val[0] 
+     result = val[0] + "\n" 
     result
   end
 .,.,
 
 module_eval(<<'.,.,', 'comment_parser.y', 23)
   def _reduce_6(val, _values, result)
-     result = val[0] 
+     result = "\n" 
     result
   end
 .,.,
@@ -172,7 +176,7 @@ module_eval(<<'.,.,', 'comment_parser.y', 26)
 
 module_eval(<<'.,.,', 'comment_parser.y', 27)
   def _reduce_8(val, _values, result)
-     result = val[1] 
+     result = val[1] + "\n" 
     result
   end
 .,.,
@@ -183,6 +187,12 @@ module_eval(<<'.,.,', 'comment_parser.y', 28)
     result
   end
 .,.,
+
+# reduce 10 omitted
+
+# reduce 11 omitted
+
+# reduce 12 omitted
 
 def _reduce_none(val, _values, result)
   val[0]

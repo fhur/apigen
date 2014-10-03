@@ -27,6 +27,8 @@ rule
   comment           : COMMENT_START COMMENT COMMENT_END { result = val[1] }
                     | COMMENT_LINE COMMENT NEW_LINE { result = val[1] + "\n" }
                     | COMMENT_LINE COMMENT EOF { result = val[1] }
+                    | COMMENT_LINE NEW_LINE { result = "" }
+                    | COMMENT_LINE EOF { result = "" }
 
   non_comment       : EOF
                     | IDENTIFIER

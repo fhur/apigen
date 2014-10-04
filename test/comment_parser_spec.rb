@@ -1,6 +1,5 @@
-`racc -g ./lib/lang/comment_parser.y`
 require 'minitest/autorun'
-require './lib/lang/comment_parser.tab.rb'
+require './lib/lang/comment_parser.rb'
 
 
 describe CommentParser do
@@ -27,9 +26,7 @@ describe CommentParser do
       """
       tokens = @parser.parse code
       tokens.must_equal [
-        [
-          []
-        ]
+        [""]
       ]
     end
 
@@ -54,13 +51,7 @@ describe CommentParser do
       """
       tokens = @parser.parse(code)
       tokens.must_equal [
-        [
-          ["foo", "bar"],
-          ["baz"],
-          ["\n"],
-          ["fee", "fie"],
-          ["foe", "fum"]
-        ]
+        [" foo bar", " baz", "", " fee fie", " foe fum"]
       ]
 
     end
@@ -80,17 +71,9 @@ describe CommentParser do
       """
       tokens = @parser.parse code
       tokens.must_equal [
-        [
-          ["block", "1"]
-        ],
-        [
-          ["block", "2"],
-          ["second", "line"]
-        ],
-        [
-          ["block", "3"]
-        ]
-
+        [" block 1"],
+        [" block 2", " second line"],
+        [" block 3"]
       ]
     end
 

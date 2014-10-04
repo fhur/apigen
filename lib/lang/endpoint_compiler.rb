@@ -6,7 +6,7 @@ require './lib/header.rb'
 require './lib/query_param.rb'
 require './lib/request_param.rb'
 
-class ApigenCompiler
+class EndpointCompiler
 
   def initialize()
     @parser = Parser.new

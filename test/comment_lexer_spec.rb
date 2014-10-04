@@ -18,6 +18,24 @@ describe CommentLexer do
       ]
     end
 
+    it "should recognize empty comment lines" do
+      code = """
+      #
+      # some comment here
+      #
+      # some other comment here
+      """
+      tokens = @lexer.tokenize(code)
+      tokens.must_equal [
+        [:NEW_LINE, 'n'],
+        [:COMMENT_LINE, '#'],[:COMMENT, ""], [:NEW_LINE, 'n'],
+        [:COMMENT_LINE, '#'], [:COMMENT, " some comment here"], [:NEW_LINE, 'n'],
+        [:COMMENT_LINE, '#'],[:COMMENT, ""], [:NEW_LINE, 'n'],
+        [:COMMENT_LINE, '#'], [:COMMENT, " some other comment here"], [:NEW_LINE, 'n'],
+        [:EOF, 'eof']
+     ]
+    end
+
     it "should recognize ruby comments" do
       code = """
       # foo

@@ -40,7 +40,7 @@ class CommentLexer
     while i < code.size
       chunk = code[i..-1]
 
-      if line_commenting and comment = chunk[/\A((.+)\n)/, 1]
+      if line_commenting and comment = chunk[/\A((.*)\n)/, 1]
         line_commenting = false
         comment = comment.gsub("\n", "")
         tokens << [:COMMENT, comment]

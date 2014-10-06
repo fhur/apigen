@@ -12,4 +12,8 @@ class EndpointGroup
     @endpoints.push endpoint
   end
 
+  def size
+    @endpoints.size
+  end
+
 end

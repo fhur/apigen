@@ -83,9 +83,10 @@ Example:
 def users
 ```
 
-TODO
-====
-
-- Implement `request_params` in Endpoint
-- Implement retrofit template
-- Implement `response_type` in Endpoint
+Changelog
+=========
+- Run `./tests.sh` to run all tests, to run an individual test file you
+  can instead run `ruby {filename}`
+- Created `ApigenCompiler`. `ApigenCompiler` returns an EndpointGroup
+  given a code string. See `./lib/lang/apigen_compiler.rb` for more
+  details.

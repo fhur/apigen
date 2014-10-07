@@ -14,7 +14,6 @@ class EndpointCompiler
 
   def compile(code)
     nodes = @parser.parse(code)
-    puts nodes
     url_method_node = nodes.url_method
     method = HttpMethod.create(url_method_node.method.to_sym)
     url = url_method_node.url

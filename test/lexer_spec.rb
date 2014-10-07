@@ -46,6 +46,10 @@ describe Lexer do
       tokens.must_equal [[:METHOD, "post"],[:URL, "/users"]]
     end
 
+     it "should not parse method names when underscored" do
+       tokens = @lexer.tokenize("@name get_names")
+       tokens.must_equal [[:NAME, "@name"], [:IDENTIFIER, "get_names"]]
+     end
  end
 
   describe "query params" do

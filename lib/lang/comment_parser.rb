@@ -47,4 +47,11 @@ class CommentParser
     end
     return result
   end
+
+  def parse_and_join(code, print_tokens = false)
+    blocks = self.parse code, print_tokens
+    blocks.map do |comment_block|
+      comment_block.join "\n"
+    end
+  end
 end

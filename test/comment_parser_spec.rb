@@ -79,4 +79,88 @@ describe CommentParser do
 
   end
 
+  describe "parse_and_join" do
+
+    it "should recognize empty code" do
+      comments = @parser.parse_and_join ""
+      comments.must_equal []
+    end
+
+    it "should recognize empty comments" do
+      comments = @parser.parse_and_join "#"
+      comments.must_equal [""]
+    end
+
+    it "should recognize empty separate blocks" do
+      code = """
+      #
+
+      #
+
+      #
+      """
+      comments = @parser.parse_and_join code
+      comments.must_equal ["","",""]
+    end
+
+    it "should recognize single line comments" do
+      code = """
+      # this is a comment line
+      """
+      comments = @parser.parse_and_join code
+      comments.must_equal [" this is a comment line"]
+    end
+
+    it "should recognize multi line comments" do
+      code = """
+      # this is a comment line
+      # this one two
+      """
+      comments = @parser.parse_and_join code
+      comments.must_equal [" this is a comment line\n this one two"]
+    end
+
+    it "should recognize multi line blocks of comments" do
+      code = """
+      # this is a comment line
+      # this one two
+
+      # this is another comment
+      """
+      comments = @parser.parse_and_join code
+      comments.must_equal [
+        " this is a comment line\n this one two",
+        " this is another comment"
+      ]
+    end
+
+    it "should ignore identifiers in mlti line blocks of comments " do
+      code = """
+      # get /users/{user_id}
+      # @name create_user
+      # @header Content-Type application/json
+      # @query {string} name
+      def create_user
+        # creates a new user
+        User.create(params)
+      end
+
+      # post /users
+      # @name creates_user
+      def method_impl_fake_here
+        User.fake.stuff
+      end
+      """
+      comments = @parser.parse_and_join code
+      comments.must_equal [
+      " get /users/{user_id}\n @name create_user\n @header Content-Type application/json\n @query {string} name",
+      " creates a new user",
+      " post /users\n @name creates_user"
+      ]
+
+    end
+
+
+  end
+
 end

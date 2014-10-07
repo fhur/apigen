@@ -30,6 +30,32 @@ describe ApigenCompiler do
 
     end
 
+    it "should compile groups of endpoints" do
+      code = """
+      # post /user
+      # @name foo
+      def some_method()
+        User.method_some
+      end
+
+      # get /fee
+      # @name bar
+      def some_method()
+        User.method_some
+      end
+
+      """
+
+      endpoint_group = @compiler.compile code, "name"
+      endpoint_group.size.must_equal 2
+      first = endpoint_group.endpoints.first
+      second = endpoint_group.endpoints[1]
+      first.method.name.must_equal :post
+      second.method.name.must_equal :get
+      first.url.must_equal "/user"
+      second.url.must_equal "/fee"
+    end
+
   end
 
 end

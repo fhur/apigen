@@ -30,9 +30,9 @@ describe Lexer do
   end
 
   describe "Method" do
-    ["get", "post", "put", "delete"].each do |method|
-      it "should recognize method #{method}" do
-        @lexer.tokenize(method).must_equal [[:METHOD, method]]
+    ["get ", "post ", "put ", "delete "].each do |method|
+      it "should recognize method '#{method}'" do
+        @lexer.tokenize(method).must_equal [[:METHOD, method.strip.chomp]]
       end
     end
 

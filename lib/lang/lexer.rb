@@ -59,8 +59,8 @@ class Lexer
 
       # Now we match http methods
       # get, post, put, delete, etc.
-      elsif method = chunk[/\A(#{METHODS.join("|")})/, 1]
-        tokens << [:METHOD, method]
+      elsif method = chunk[/\A((#{METHODS.join("|")})(\s))/, 1]
+        tokens << [:METHOD, method.strip]
         i += method.size
 
       # Now we match urls

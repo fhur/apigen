@@ -17,8 +17,13 @@ class ApigenCompiler
   def compile(code, name)
     comment_blocks = @comment_parser.parse_and_join code
     endpoints = comment_blocks.map do |comment_block|
-      @endpoint_compiler.compile comment_block
+      begin
+        @endpoint_compiler.compile comment_block
+      rescue Racc::ParseError
+        nil
+      end
     end
+    endpoints = endpoints.select { |endpoint| not endpoint.nil? }
     return EndpointGroup.new name: name, endpoints: endpoints
   end
 end

@@ -56,6 +56,17 @@ describe ApigenCompiler do
       second.url.must_equal "/fee"
     end
 
+    it "should ignore simple comments that do not describe an endpoint" do
+      code = """
+      # this method does something cool
+      def some_method
+        method_cool()
+      end
+      """
+      endpoint_group = @compiler.compile code, "name"
+      endpoint_group.size.must_equal 0
+    end
+
   end
 
 end

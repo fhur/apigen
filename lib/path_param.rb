@@ -12,13 +12,13 @@ class PathParam
   end
 
   # Given a url, it will return all path params in the url
-  # Path params are expressed via {{param_name}} notation and
-  # can optionally include a type using {{param_name:type}} notation.
+  # Path params are expressed via {param_name} notation and
+  # can optionally include a type using {param_name:type} notation.
   # The param_name can be any alphanumeric string starting
   # wth letters. The type can be one of :int, :string
   def PathParam.fromUrl(url)
     path_params = {} # create an empty hash that will hold the path params
-    # tokens will hold an array of {{string}} elements
+    # tokens will hold an array of {string} elements
     tokens = url.gsub(/#{INIT_PATH_SEPARATOR}[a-zA-Z0-9]+(_[a-zA-Z0-9]+)?(:[a-zA-Z0-9]+)?#{END_PATH_SEPARATOR}/).to_a
     tokens.each do |token|
       path_param = PathParam.parse_path_param_token(token)
@@ -27,10 +27,10 @@ class PathParam
     return path_params
   end
 
-  # given a token {{token_string}}, this method will return the tokens name and type in an array
+  # given a token {token_string}, this method will return the tokens name and type in an array
   # Example:
-  #   {{user_id}} will return ["user_id", :string]
-  #   {{user_id:int}} will return ["user_id", :int]
+  #   {user_id} will return ["user_id", :string]
+  #   {user_id:int} will return ["user_id", :int]
   def PathParam.parse_path_param_token(token)
     token = token.delete(INIT_PATH_SEPARATOR).delete(END_PATH_SEPARATOR)
     name = token

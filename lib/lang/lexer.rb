@@ -1,7 +1,3 @@
-
-
-
-
 #
 # The ApiGen Lexer
 #

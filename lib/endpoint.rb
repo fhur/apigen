@@ -13,16 +13,16 @@ class Endpoint
   attr_reader :method
 
   # The request url. It can contain path params.
-  # Example: /users/{{user_id}}/show
+  # Example: /users/{user_id}/show
   attr_reader :url
 
   # Path params are obtained by parsing the url.
-  # All params are delimited by {{ and }} so for example
-  # /users/{{user_id}}/cars/{{car_id}}/show has 2 path_params
+  # All params are delimited by { and } so for example
+  # /users/{user_id}/cars/{car_id}/show has 2 path_params
   # the first one is user_id and the second one is car_id
   # TODO: Implement type enforcing
   # You can optionally enforce the path_param's type using the
-  # following syntax {{param_name:type}} where type can be one of
+  # following syntax {param_name:type} where type can be one of
   # string, int, float, double or boolean
   attr_reader :path_params
 
@@ -57,18 +57,28 @@ class Endpoint
 
   end
 
+  # Adds or updates a header if already present.
+  # @param {Header} a header object
   def put_header(header)
     @headers[header.name] = header
   end
 
+  # adds or updates a query param if already present.
+  # @param {QueryParam} a query param object
   def put_query_param(query_param)
     @query_params[query_param.name] = query_param
   end
 
+  # adds or updates a path param if already present.
+  # @param {PathParam} a path param object.
   def put_path_param(path_param)
     @path_params[path_param.name] = path_param
   end
 
+  # adds or updates a request param if already present.
+  def put_request_params(request_param)
+    @request_params[request_param.name] = request_param
+  end
 
 end
 

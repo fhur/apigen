@@ -6,6 +6,7 @@ class CommentParser
     @lexer = CommentLexer.new
   end
 
+
   def parse(code, print_tokens=false)
     tokens = @lexer.tokenize code
     p tokens if print_tokens
@@ -48,6 +49,26 @@ class CommentParser
     return result
   end
 
+  # Given a string of code as input, this method removes all non comments
+  # and returns the resulting string. Comments are then split into blocks
+  # and returned as an array.
+  #
+  # Example: Given the following text as input
+  # # comment 1
+  # # comment 2
+  # # comment 3
+  # def some method here
+  #   some_code_here
+  #   some_more_code
+  #   # another comment
+  # end
+  #
+  # # another comment
+  # def more_code
+  # end
+  #
+  # This will be returned
+  # [ " comment 1\n comment2\n comment3 ", " another comment", " another comment" ]
   def parse_and_join(code, print_tokens = false)
     blocks = self.parse code, print_tokens
     blocks.map do |comment_block|

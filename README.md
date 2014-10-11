@@ -83,10 +83,35 @@ Example:
 def users
 ```
 
-Changelog
-=========
-- Run `./tests.sh` to run all tests, to run an individual test file you
-  can instead run `ruby {filename}`
-- Created `ApigenCompiler`. `ApigenCompiler` returns an EndpointGroup
-  given a code string. See `./lib/lang/apigen_compiler.rb` for more
-  details.
+Config File
+===========
+The Config file specifies all the configuration needed to load Apigen
+with the generators you wish to use.
+
+The structure of the file is as follows
+
+Example:
+This config file example takes one input file and applies two
+generators, apigen-ruby and apigen-python.
+
+You can specify any number of generators.
+The opts parameter is optional, it is passed on to the generator,
+different genrators may require that you pass different options.
+```json
+input: "~/apps/my_rails_app/app/controllers/users_controller.rb",
+generators: [
+  {
+    require: "apigen-ruby",
+    out:  "~/apps/gems/apigen_ruby/lib/users_api.rb",
+    opts : {
+      name: "UsersApi"
+    }
+  },
+  {
+    require: "apigen-python"
+    out: "~/apps/pips/apigen_py/users_api.py",
+    opts : {}
+  }
+]
+```
+

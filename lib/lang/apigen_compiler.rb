@@ -12,9 +12,10 @@ class ApigenCompiler
   # Compiles a code string into an EndpointGroup
   # @param {string} code  A listeral code string representing the program from which
   #                       comment block will be extracted into endpoints.
-  # @param {string} name  A name for the endpoint group. This attribute can be used
-  #                       by the generator (i.e. as the class name)
-  def compile(code, name)
+  # @param {string} opts  A hash containing a list of options passed to the EndpointGroup
+  #                       This hash can contain additional information needed for generators
+  #                       like a name, description, creation_date, etc.
+  def compile(code, opts)
     comment_blocks = @comment_parser.parse_and_join code
     endpoints = comment_blocks.map do |comment_block|
       begin
@@ -24,6 +25,6 @@ class ApigenCompiler
       end
     end
     endpoints = endpoints.select { |endpoint| not endpoint.nil? }
-    return EndpointGroup.new name: name, endpoints: endpoints
+    return EndpointGroup.new opts: opts, endpoints: endpoints
   end
 end

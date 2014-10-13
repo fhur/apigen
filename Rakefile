@@ -18,9 +18,10 @@ Jeweler::Tasks.new do |gem|
   gem.homepage = "http://github.com/fhur/apigen"
   gem.license = "MIT"
   gem.summary = %Q{Generate API clients by documenting your API code}
-  gem.description = %Q{Generate API clients by documenting your API code}
+  gem.description = %Q{Generate API clients by documenting your API code.}
   gem.email = "fernandohur@gmail.com"
   gem.authors = ["fhur"]
+  gem.executables = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   # dependencies defined in Gemfile
 end
 Jeweler::RubygemsDotOrgTasks.new

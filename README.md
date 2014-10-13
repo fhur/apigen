@@ -97,6 +97,7 @@ generators, apigen-ruby and apigen-python.
 You can specify any number of generators.
 The opts parameter is optional, it is passed on to the generator,
 different genrators may require that you pass different options.
+
 ```json
 input: "~/apps/my_rails_app/app/controllers/users_controller.rb",
 generators: [

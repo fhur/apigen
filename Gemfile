@@ -1,4 +1,4 @@
 source 'https://rubygems.org'
 
-gem 'minitest'
-gem 'jeweler'
+gem 'minitest','= 5.4'
+gem 'jeweler', '= 2.0.1'

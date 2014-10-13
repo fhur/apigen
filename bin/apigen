@@ -11,16 +11,48 @@ class ApigenCLI < Thor
     "Reads file [FILENAME] and generates clients.\n
     You can pass a path for the config in case\n
     it's not located at the default location."
-  def generate(config_path="./apigen.json")
+  def generate(config_path=DEFAULT_FILE)
     @apigen = Apigen.new
     config_file = File.read config_path
     reader = ConfigReader.new config_file
     program = File.read reader.input
     @apigen.generate program, reader.generators
   end
-end
 
-ApigenCLI.start ARGV
+  desc 'g [FILENAME [CONFIG:optional] ',"equivalent to 'generate'"
+  alias :g :generate
+
+  desc "generate:config [FILENAME:optional]",
+    "Generates an example configuration file in the given path"
+  def generate_config(config_path=DEFAULT_FILE)
+    json = """{
+  endpoints: [
+    {
+      // This is the file path of your API
+      input: '/path/to/your/file.rb',
+      // a list of all generators that will be applied to that
+      // endpoint
+      generators: [
+        {
+          // every generator contains a require statement
+          // the output location and an opts object which
+          // passes options to the generator.
+          require: 'generator-name',
+          out: './out.md',
+          opts: {}
+        }
+      ]
+    }
+  ]
+}
+"""
+    File.open config_path, 'w' do |f|
+      f.write json
+    end
+
+    puts "wrote #{json.bytes.size} bytes to #{config_path}"
+  end
+
   desc 'parse_config [FILENAME:optional]',
     "Reades the config file and outputs it's contents to stdout"
   def parse_config(config_path=DEFAULT_FILE)
@@ -28,3 +60,6 @@ ApigenCLI.start ARGV
     config_reader = ConfigReader.new config
     puts config_reader
   end
+end
+
+ApigenCLI.start ARGV

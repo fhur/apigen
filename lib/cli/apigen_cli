@@ -1,0 +1,24 @@
+#!/usr/bin/env ruby
+require 'thor'
+require './lib/apigen.rb'
+require './lib/config/config_reader.rb'
+
+class ApigenCLI < Thor
+
+  def initialize
+    @apigen = Apigen.new
+  end
+
+  desc "generate [FILENAME] [CONFIG:optional]",
+    "Reads file [FILENAME] and generates clients.\n
+    You can pass a path for the config in case\n
+    it's not located at the default location."
+  def generate(config_path="./apigen.json")
+    config_file = File.read config_path
+    reader = ConfigReader.new config_file
+    program = File.read reader.input
+    @apigen.generate program, reader.generators
+  end
+end
+
+ApigenCLI.start ARGV

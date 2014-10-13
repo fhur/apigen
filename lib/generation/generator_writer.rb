@@ -21,4 +21,8 @@ class GeneratorWriter
     end
     return generated
   end
+
+  def inspect
+    "generator: #{generator.class}, path: #{path}, opts: #{opts}"
+  end
 end

@@ -52,4 +52,7 @@ class ConfigReader
     return generator_writer
   end
 
+  def inspect
+    "input: #{@input}, generators: #{@generators}"
+  end
 end

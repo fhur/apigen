@@ -5,6 +5,8 @@ require './lib/config/config_reader.rb'
 
 class ApigenCLI < Thor
 
+  DEFAULT_FILE = './apigen.json'
+
   desc "generate [FILENAME] [CONFIG:optional]",
     "Reads file [FILENAME] and generates clients.\n
     You can pass a path for the config in case\n
@@ -19,3 +21,10 @@ class ApigenCLI < Thor
 end
 
 ApigenCLI.start ARGV
+  desc 'parse_config [FILENAME:optional]',
+    "Reades the config file and outputs it's contents to stdout"
+  def parse_config(config_path=DEFAULT_FILE)
+    config = File.read config_path
+    config_reader = ConfigReader.new config
+    puts config_reader
+  end

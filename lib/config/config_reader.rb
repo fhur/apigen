@@ -37,7 +37,7 @@ class ConfigReader
     begin
       require req_name
     rescue LoadError
-      raise "Unable to require #{req_name} in generator #{gen_hash}"
+      raise "Unable to require '#{req_name}' in generator #{gen_hash}"
     end
 
     # creates a new instance of Generator

@@ -1,6 +1,10 @@
 apigen (alpha)
 ==============
 
+# NOTE: This is a work in progress.
+This project is in development phase.
+Please follow/star the project to receive notifications when a release is available.
+
 Generate api clients by documenting you api implementation. `apigen` is
 a simple DSL for documenting your API. After documenting, `apigen` can
 understand the DSL and generate clients for your API (so you don't have

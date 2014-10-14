@@ -23,13 +23,14 @@ class ConfigReader
   end
 
   # Takes as input a hash with the following keys: 'require',
-  # 'out', 'opts'.
+  # 'out', 'opts' and 'class'
   # @return an instance of GeneratorWriter
   def parse_generator(gen_hash)
     # parse the hash and extract the require name,
     # the output path and the options
     req_name = gen_hash['require']
     out_path = gen_hash['out']
+    class_name = gen_hash['class']
     opts = gen_hash['opts']
 
     # in case the require cannot be completed, throw a meaningful
@@ -41,7 +42,7 @@ class ConfigReader
     end
 
     # creates a new instance of Generator
-    generator = Object::const_get req_name
+    generator = Object::const_get class_name
 
     # Creates the GeneratorWriter, assigns the generator
     # and the path

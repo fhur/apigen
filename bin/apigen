@@ -37,6 +37,7 @@ class ApigenCLI < Thor
       // the output location and an opts object which
       // passes options to the generator.
       \"require\": \"generator-name\",
+      \"class\": \"AwesomeGenerator\"
       \"out\": \"./out.md\",
       \"opts\": {}
     }

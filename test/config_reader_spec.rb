@@ -23,6 +23,38 @@ describe ConfigReader do
         }
       ]
     }
+
+    @multiple = {
+      'endpoints' => [
+        {
+          'input' => 'foo.rb',
+          'generators' => [
+            {
+              'require' => './lib/generation/simple_generator.rb',
+              'out' => './foo/bar.md',
+              'class' => 'SimpleGenerator'
+            },
+            {
+              'require' => './lib/generation/simple_generator.rb',
+              'out' => './foo/bar.rb',
+              'class' => 'SimpleGenerator'
+            }
+          ]
+        },
+        {
+          'input' => 'bar.rb',
+          'generators' => [
+            {
+              'require' => './lib/generation/simple_generator.rb',
+              'out' => './fee/fie.txt',
+              'class' => 'SimpleGenerator'
+            }
+          ]
+        }
+     ]
+    }
+
+
   end
 
   describe "parsing json" do
@@ -48,6 +80,15 @@ describe ConfigReader do
       gen.generator.is_a? SimpleGenerator
       gen.opts.wont_be_nil
       gen.opts.size.must_equal 0
+    end
+
+    it "should parse several endpoints" do
+      endpoints = ConfigReader.new(@multiple).endpoints
+
+      # verify that there are 2 endpoints
+      endpoints.size.must_equal 2
+      endpoints.first[:generators].size.must_equal 2
+      endpoints[1][:generators].size.must_equal 1
     end
   end
 

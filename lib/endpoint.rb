@@ -72,6 +72,7 @@ class Endpoint
   # adds or updates a path param if already present.
   # @param {PathParam} a path param object.
   def put_path_param(path_param)
+    raise ArgumentError, "Path params must be present in the URL: #{@url}" unless @path_params.include? path_param.name
     @path_params[path_param.name] = path_param
   end
 

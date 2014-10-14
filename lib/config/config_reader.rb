@@ -3,23 +3,53 @@ require 'json'
 class ConfigReader
 
   # A string indicating the location of the input file
-  attr_reader :input
-
-  # An array of GeneratorWriter
-  attr_reader :generators
+  attr_reader :endpoints
 
   def initialize(config_json)
     config = JSON.parse(config_json)
-    parse_config(config)
+    @endpoints = parse_endpoints(config)
   end
 
   private
 
-  def parse_config(config)
-    @input = config['input']
-    @generators = config['generators'].map do |g|
+  # Parses the json config
+  def parse_endpoints(config)
+    endpoints = get_key(config,'endpoints').map do |endpoint|
+      parse_endpoint(endpoint)
+    end
+    return endpoints
+  end
+
+  # Given a hash with the following structure:
+  #
+  # {
+  #   'input' => [String],
+  #   'generators' => [Array]
+  # }
+  #
+  # And 'generators' is an array of elements with the following structure
+  #
+  # 'require' => [String]
+  # 'out' => [String]
+  # 'class' => [String]
+  # 'opts' => [Hash]
+  #
+  # Returns the result of parsing the given endpoint hash. The output
+  # is a Hash with the following structure
+  # {
+  #   :input => [String],
+  #   :generators => [Array of parsed generators]
+  # }
+  #
+  def parse_endpoint(endpoint_config)
+    input = get_key(endpoint_config, 'input')
+    generators = get_key(endpoint_config,'generators').map do |g|
       parse_generator(g)
     end
+    return {
+      :input => input,
+      :generators => generators
+    }
   end
 
   # Takes as input a hash with the following keys: 'require',
@@ -53,7 +83,15 @@ class ConfigReader
     return generator_writer
   end
 
+  def get_key(hash, key)
+    if hash.has_key? key
+      return hash[key]
+    else
+      raise "key '#{key}' was expected but not found in #{hash}"
+    end
+  end
+
   def inspect
-    "input: #{@input}, generators: #{@generators}"
+    @endpoints.inspect
   end
 end

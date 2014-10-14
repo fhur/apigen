@@ -27,19 +27,23 @@ class ApigenCLI < Thor
   def generate_config(config_path=DEFAULT_FILE)
     json = """
 {
-  // This is the file path of your API
-  \"input\": \"/path/to/your/file.rb\",
-  // a list of all generators that will be applied to that
-  // endpoint
-  \"generators\": [
+  \"endpoints\": [
     {
-      // every generator contains a require statement
-      // the output location and an opts object which
-      // passes options to the generator.
-      \"require\": \"generator-name\",
-      \"class\": \"AwesomeGenerator\"
-      \"out\": \"./out.md\",
-      \"opts\": {}
+      // This is the file path of your API
+      \"input\": \"/path/to/your/file.rb\",
+      // a list of all generators that will be applied to that
+      // endpoint
+      \"generators\": [
+        {
+          // every generator contains a require statement
+          // the output location and an opts object which
+          // passes options to the generator.
+          \"require\": \"generator-name\",
+          \"class\": \"AwesomeGenerator\"
+          \"out\": \"./out.md\",
+          \"opts\": {}
+        }
+      ]
     }
   ]
 }

@@ -15,7 +15,7 @@ class ApigenCompiler
   # @param {string} opts  A hash containing a list of options passed to the EndpointGroup
   #                       This hash can contain additional information needed for generators
   #                       like a name, description, creation_date, etc.
-  def compile(code, opts)
+  def compile(code, opts={})
     comment_blocks = @comment_parser.parse_and_join code
     endpoints = comment_blocks.map do |comment_block|
       begin

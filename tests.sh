@@ -1,4 +1,4 @@
-cat ./test/*spec.rb > ./gen/joint.rb
-ruby ./gen/joint.rb
-rm ./gen/joint.rb
+cat ./test/*spec.rb > ./pkg/joint.rb
+ruby ./pkg/joint.rb
+rm ./pkg/joint.rb
 

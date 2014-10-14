@@ -19,7 +19,6 @@ describe ApigenCompiler do
       """
 
       endpoint_group = @compiler.compile code, "users"
-      endpoint_group.name.must_equal "users"
       endpoints = endpoint_group.endpoints
       endpoints.size.must_equal 1
       endpoint = endpoints.first

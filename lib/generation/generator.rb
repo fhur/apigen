@@ -6,7 +6,7 @@ class Generator
   #                                         opts is an empty hash by default.
   # @return the generated code
   def generate(endpoint_group, opts={})
-    raise "Unimplemented method => generators must provide their own generation algorithm"
+    raise NotImplementedError, "generators must provide their own generation algorithm"
   end
 end
 

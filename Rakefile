@@ -32,7 +32,7 @@ task :test do
 end
 
 desc "Code coverage detail"
-task :simplecov do
+task :coverage do
   require 'simplecov'
   SimpleCov.start
   Rake::Task['test'].execute

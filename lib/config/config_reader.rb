@@ -2,12 +2,16 @@ require 'json'
 
 class ConfigReader
 
-  # A string indicating the location of the input file
+  # The parsed endpoints
   attr_reader :endpoints
 
-  def initialize(config_json)
-    config = JSON.parse(config_json)
+  def initialize(config)
     @endpoints = parse_endpoints(config)
+  end
+
+  def ConfigReader.parse(json)
+    config_hash = JSON.parse(json)
+    return ConfigReader.new config_hash
   end
 
   private
@@ -58,10 +62,10 @@ class ConfigReader
   def parse_generator(gen_hash)
     # parse the hash and extract the require name,
     # the output path and the options
-    req_name = gen_hash['require']
-    out_path = gen_hash['out']
-    class_name = gen_hash['class']
-    opts = gen_hash['opts']
+    req_name = get_key(gen_hash, 'require')
+    out_path = get_key(gen_hash, 'out')
+    class_name = get_key(gen_hash, 'class')
+    opts = gen_hash['opts'] ||= {}
 
     # in case the require cannot be completed, throw a meaningful
     # error message
@@ -83,6 +87,8 @@ class ConfigReader
     return generator_writer
   end
 
+  # returns the hash[key] or raises a human readable
+  # error if the key is not present.
   def get_key(hash, key)
     if hash.has_key? key
       return hash[key]

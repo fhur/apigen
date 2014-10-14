@@ -1,4 +1,5 @@
 require 'json'
+require './lib/generation/generator_writer.rb'
 
 class ConfigReader
 

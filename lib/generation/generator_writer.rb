@@ -2,15 +2,15 @@ class GeneratorWriter
 
   # A Generator sublcass used to generate the actual code.
   # The output of Generator#generate will be written in 'path'
-  attr_writer :generator
+  attr_accessor :generator
 
   # the location where this generator should
   # produce output. if path is nil, it should
   # produce output to stdinput.
-  attr_writer :path
+  attr_accessor  :path
 
   # a hash of options
-  attr_writer :opts
+  attr_accessor :opts
 
   # Takes the output of the Generator and writes it to the given path
   # @return the output of the generator
@@ -23,6 +23,6 @@ class GeneratorWriter
   end
 
   def inspect
-    "generator: #{generator.class}, path: #{path}, opts: #{opts}"
+    return "[generator: #{@generator.class}, path: #{@path}, opts: #{@opts}]"
   end
 end

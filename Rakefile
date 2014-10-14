@@ -26,16 +26,15 @@ Jeweler::Tasks.new do |gem|
 end
 Jeweler::RubygemsDotOrgTasks.new
 
-require 'rake/testtask'
-Rake::TestTask.new(:test) do |test|
-  test.libs << 'lib' << 'test'
-  test.pattern = 'test/**/test_*.rb'
-  test.verbose = true
+desc "Run all minitest tests"
+task :test do
+  Dir.glob("./test/**").each { |file| require file }
 end
 
 desc "Code coverage detail"
 task :simplecov do
-  ENV['COVERAGE'] = "true"
+  require 'simplecov'
+  SimpleCov.start
   Rake::Task['test'].execute
 end
 

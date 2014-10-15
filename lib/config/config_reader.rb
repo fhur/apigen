@@ -15,8 +15,6 @@ class ConfigReader
     return ConfigReader.new config_hash
   end
 
-  private
-
   # Parses the json config
   def parse_endpoints(config)
     endpoints = get_key(config,'endpoints').map do |endpoint|

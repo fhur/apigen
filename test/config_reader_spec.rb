@@ -92,4 +92,25 @@ describe ConfigReader do
     end
   end
 
+  describe "get_key" do
+
+    before :each do
+      @config = ConfigReader.new @single
+      @hash = {
+        :name => 'bob'
+      }
+    end
+
+    it "should raise an error if the key is not present" do
+      assert_raises RuntimeError do
+        @config.get_key(@hash, :name2)
+      end
+    end
+
+    it "should return the value of the key if present" do
+      value = @config.get_key @hash, :name
+      value.must_equal 'bob'
+    end
+  end
+
 end

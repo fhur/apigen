@@ -74,14 +74,14 @@ class ConfigReader
       raise "Unable to require '#{req_name}' in generator #{gen_hash}"
     end
 
-    # creates a new instance of Generator
-    generator = Object::const_get class_name
+    # creates a new instance of Generator class
+    generator_class = Object::const_get class_name
 
     # Creates the GeneratorWriter, assigns the generator
     # and the path
     generator_writer = GeneratorWriter.new
     generator_writer.path = out_path
-    generator_writer.generator = generator
+    generator_writer.generator = generator_class.new
     generator_writer.opts = opts
     return generator_writer
   end

@@ -27,21 +27,14 @@ class ApigenCLI < Thor
   def generate_config(config_path=DEFAULT_FILE)
     json = """
 {
-  \"endpoints\": [
+  \"endpoints\":[
     {
-      // This is the file path of your API
-      \"input\": \"/path/to/your/file.rb\",
-      // a list of all generators that will be applied to that
-      // endpoint
-      \"generators\": [
+      \"input\":\"some/file.rb\",
+      \"generators\":[
         {
-          // every generator contains a require statement
-          // the output location and an opts object which
-          // passes options to the generator.
-          \"require\": \"generator-name\",
-          \"class\": \"AwesomeGenerator\"
-          \"out\": \"./out.md\",
-          \"opts\": {}
+          \"require\":\"./lib/generation/simple_generator.rb\",
+          \"out\":\"./pkg/out_file.txt\",
+          \"class\":\"SimpleGenerator\"
         }
       ]
     }
@@ -56,11 +49,19 @@ class ApigenCLI < Thor
   end
 
   desc 'parse_config [FILENAME:optional]',
-    "Reades the config file and outputs it's contents to stdout"
+    "Reades the config file and outputs it's contents to stdout\n This method
+    provides useful info when debugging your config file"
   def parse_config(config_path=DEFAULT_FILE)
     config = File.read config_path
-    config_reader = ConfigReader.new config
-    puts config_reader
+    config_reader = ConfigReader.parse config
+    endpoints = config_reader.endpoints
+    puts "input: #{endpoints.size} endpoints detected:"
+    endpoints.each do |endpoint|
+      puts endpoint[:input]
+      endpoint[:generators].each do |generator|
+        puts "  #{generator.inspect}"
+      end
+    end
   end
 end
 

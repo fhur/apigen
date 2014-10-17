@@ -23,6 +23,6 @@ class GeneratorWriter
   end
 
   def inspect
-    return "[generator: #{@generator.class}, path: #{@path}, opts: #{@opts}]"
+    return "[ generator: #{@generator.class}, path: #{@path}, opts: #{@opts} ]"
   end
 end

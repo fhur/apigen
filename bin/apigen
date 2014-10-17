@@ -7,19 +7,25 @@ class ApigenCLI < Thor
 
   DEFAULT_FILE = './apigen.json'
 
-  desc "generate [FILENAME] [CONFIG:optional]",
-    "Reads file [FILENAME] and generates clients.\n
-    You can pass a path for the config in case\n
-    it's not located at the default location."
+  desc "generate [FILENAME:optional]",
+    "Reads file config locted at [FILENAME] and generates clients. By default the config file is
+    located at ./apigen.json"
   def generate(config_path=DEFAULT_FILE)
     @apigen = Apigen.new
     config_file = File.read config_path
-    reader = ConfigReader.new config_file
-    program = File.read reader.input
-    @apigen.generate program, reader.generators
+    reader = ConfigReader.parse config_file
+    reader.endpoints.each do |endpoint|
+      input = endpoint[:input]
+      if File.exists? input
+        program = File.read input
+        @apigen.generate program, endpoint[:generators]
+      else
+        puts "File #{input} not found. Check your config file."
+      end
+    end
   end
 
-  desc 'g [FILENAME [CONFIG:optional] ',"equivalent to 'generate'"
+  desc 'g [FILENAME:optional]',"equivalent to 'generate'"
   alias :g :generate
 
   desc "generate:config [FILENAME:optional]",
@@ -48,9 +54,11 @@ class ApigenCLI < Thor
     puts "wrote #{json.bytes.size} bytes to #{config_path}"
   end
 
-  desc 'parse_config [FILENAME:optional]',
-    "Reades the config file and outputs it's contents to stdout\n This method
-    provides useful info when debugging your config file"
+  desc 'parse_config [FILENAME:optional]', "Reads the config file and outputs it's contents to stdout."
+  long_desc <<-LONG_DESC
+  This method provides useful info when debugging your config file.
+  If the FILENAME param is not passed to parse_config, parse_config will try to read from ./apigen.json
+  LONG_DESC
   def parse_config(config_path=DEFAULT_FILE)
     config = File.read config_path
     config_reader = ConfigReader.parse config

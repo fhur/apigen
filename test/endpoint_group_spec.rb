@@ -1,6 +1,6 @@
 require 'minitest/autorun'
-require './lib/endpoint_group.rb'
-require './lib/endpoint.rb'
+require './lib/apigen/endpoint_group.rb'
+require './lib/apigen/endpoint.rb'
 
 describe EndpointGroup do
 

@@ -1,5 +1,5 @@
 require 'minitest/autorun'
-require './lib/http_method.rb'
+require './lib/apigen/http_method.rb'
 
 describe HttpMethod do
 

@@ -1,5 +1,5 @@
 require 'minitest/autorun'
-require './lib/path_param.rb'
+require './lib/apigen/path_param.rb'
 
 describe PathParam do
 

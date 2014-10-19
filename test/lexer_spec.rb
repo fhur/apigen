@@ -1,5 +1,5 @@
 require 'minitest/autorun'
-require './lib/lang/lexer.rb'
+require './lib/apigen/lang/lexer.rb'
 
 describe Lexer do
 

@@ -1,4 +1,4 @@
-require './lib/lang/apigen_compiler.rb'
+require './lib/apigen/lang/apigen_compiler.rb'
 require 'minitest/autorun'
 
 describe ApigenCompiler do

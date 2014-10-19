@@ -1,5 +1,5 @@
 require 'minitest/autorun'
-require './lib/lang/comment_parser.rb'
+require './lib/apigen/lang/comment_parser.rb'
 
 
 describe CommentParser do

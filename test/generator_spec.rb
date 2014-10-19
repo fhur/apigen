@@ -1,5 +1,5 @@
 require 'minitest/autorun'
-require './lib/generation/generator.rb'
+require './lib/apigen/generation/generator.rb'
 
 
 describe Generator do

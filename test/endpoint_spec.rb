@@ -1,5 +1,5 @@
 require 'minitest/autorun'
-require './lib/endpoint.rb'
+require './lib/apigen/endpoint.rb'
 
 describe Endpoint do
 

@@ -1,6 +1,6 @@
 require 'minitest/autorun'
-require './lib/config/config_reader.rb'
-require './lib/generation/simple_generator.rb'
+require './lib/apigen/config/config_reader.rb'
+require './lib/apigen/generation/simple_generator.rb'
 
 describe ConfigReader do
 
@@ -15,7 +15,7 @@ describe ConfigReader do
           'input' => 'some/file.rb',
           'generators' => [
             {
-              'require' => './lib/generation/simple_generator.rb',
+              'require' => './lib/apigen/generation/simple_generator.rb',
               'out' => './pkg/out_file.txt',
               'class' => 'SimpleGenerator'
             }
@@ -30,12 +30,12 @@ describe ConfigReader do
           'input' => 'foo.rb',
           'generators' => [
             {
-              'require' => './lib/generation/simple_generator.rb',
+              'require' => './lib/apigen/generation/simple_generator.rb',
               'out' => './foo/bar.md',
               'class' => 'SimpleGenerator'
             },
             {
-              'require' => './lib/generation/simple_generator.rb',
+              'require' => './lib/apigen/generation/simple_generator.rb',
               'out' => './foo/bar.rb',
               'class' => 'SimpleGenerator'
             }
@@ -45,7 +45,7 @@ describe ConfigReader do
           'input' => 'bar.rb',
           'generators' => [
             {
-              'require' => './lib/generation/simple_generator.rb',
+              'require' => './lib/apigen/generation/simple_generator.rb',
               'out' => './fee/fie.txt',
               'class' => 'SimpleGenerator'
             }

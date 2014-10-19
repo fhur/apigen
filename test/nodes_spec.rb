@@ -1,5 +1,5 @@
 require 'minitest/autorun'
-require './lib/lang/parser.tab.rb'
+require './lib/apigen/lang/parser.tab.rb'
 
 describe Nodes do
 

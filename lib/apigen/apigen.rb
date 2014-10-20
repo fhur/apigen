@@ -13,7 +13,7 @@ class Apigen
   # @param {string} program             The actual for for the program.
   # @param {Array of GeneratorWriter}   An Array of generator writers
   def generate(program, generator_writers, opts={})
-    @apigen_compiler.compile program, opts
+    endpoint_group = @apigen_compiler.compile program, opts
     generator_writers.each do |g|
       g.generate_and_write endpoint_group
     end

@@ -1,5 +1,5 @@
-require './lib/generation/generator.rb'
-require './lib/lang/apigen_compiler.rb'
+require 'apigen/generation/generator.rb'
+require 'apigen/lang/apigen_compiler.rb'
 
 class Apigen
 

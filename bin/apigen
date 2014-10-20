@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 require 'thor'
-require './lib/apigen.rb'
-require './lib/config/config_reader.rb'
+require 'apigen/apigen.rb'
+require 'apigen/config/config_reader.rb'
 
 class ApigenCLI < Thor
 

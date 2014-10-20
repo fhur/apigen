@@ -58,8 +58,8 @@ rule
 
 ---- header
 
-  require "./lib/lang/nodes.rb"
-  require "./lib/lang/lexer.rb"
+  require "apigen/lang/nodes.rb"
+  require "apigen/lang/lexer.rb"
 
 ---- inner
 

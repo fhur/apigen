@@ -1,10 +1,10 @@
-require './lib/endpoint.rb'
-require './lib/lang/parser.tab.rb'
-require './lib/lang/nodes.rb'
-require './lib/path_param.rb'
-require './lib/header.rb'
-require './lib/query_param.rb'
-require './lib/request_param.rb'
+require 'apigen/endpoint.rb'
+require 'apigen/lang/parser.tab.rb'
+require 'apigen/lang/nodes.rb'
+require 'apigen/path_param.rb'
+require 'apigen/header.rb'
+require 'apigen/query_param.rb'
+require 'apigen/request_param.rb'
 
 class EndpointCompiler
 

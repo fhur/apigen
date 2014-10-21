@@ -10,6 +10,7 @@ class SimpleGenerator < Generator
       lines << "#{endpoint.method} #{endpoint.url}"
       lines << ""
     end
+    return lines
   end
 
 end

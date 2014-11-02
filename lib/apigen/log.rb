@@ -1,35 +1,41 @@
 require 'logger'
+require 'singleton'
 
 class Log
+  include Singleton
 
   attr_reader :logger
 
-  def initialize(level: Logger::DEBUG)
+  def initialize()
     @logger = Logger.new STDERR
+    @logger.level = Logger::WARN
+    @logger.progname = 'apigen'
+    @logger.formatter = proc do |serverity, time, progname, msg|
+      "#{progname} (#{serverity.downcase}): #{msg}\n"
+    end
+  end
+
+  def Log.init(level: Logger::DEBUG)
+    Log.instance.logger.level = level
   end
 
   def Log.d(msg)
-    Log.get.logger.debug msg
+    Log.instance.logger.debug msg
   end
 
   def Log.i(msg)
-    Log.get.logger.info msg
+    Log.instance.logger.info msg
   end
 
   def Log.w(msg)
-    Log.get.logger.warn msg
+    Log.instance.logger.warn msg
   end
 
   def Log.e(msg)
-    Log.get.logger.error msg
+    Log.instance.logger.error msg
   end
 
-  def Log.get
-    @@instance
-  end
+end
 
-  def Log.init(level:Logger::DEBUG)
-    @@instance = Log.new level: level
-  end
-
+class NullLoger < Logger
 end

@@ -30,12 +30,13 @@ class ConfigReader
   #   'generators' => [Array]
   # }
   #
-  # And 'generators' is an array of elements with the following structure
-  #
-  # 'require' => [String]
-  # 'out' => [String]
-  # 'class' => [String]
-  # 'opts' => [Hash]
+  # And 'generators' is an array of Objects with the following structure
+  # {
+  #   'require' => [String]
+  #   'out' => [String]
+  #   'class' => [String]
+  #   'opts' => [Hash]
+  # }
   #
   # Returns the result of parsing the given endpoint hash. The output
   # is a Hash with the following structure

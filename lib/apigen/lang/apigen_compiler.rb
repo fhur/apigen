@@ -1,3 +1,4 @@
+require 'apigen/log.rb'
 require 'apigen/lang/comment_parser.rb'
 require 'apigen/lang/endpoint_compiler.rb'
 require 'apigen/endpoint_group.rb'
@@ -16,15 +17,24 @@ class ApigenCompiler
   #                       This hash can contain additional information needed for generators
   #                       like a name, description, creation_date, etc.
   def compile(code, opts={})
+    Log.d "Parsing comment blocks"
     comment_blocks = @comment_parser.parse_and_join code
+    Log.d "#{comment_blocks.size} comment blocks detected"
     endpoints = comment_blocks.map do |comment_block|
       begin
-        @endpoint_compiler.compile comment_block
-      rescue Racc::ParseError
+        Log.d "Parsing '#{comment_block[0..10]}...'"
+        compiled = @endpoint_compiler.compile comment_block
+        Log.d "Success"
+        compiled
+      rescue Racc::ParseError => e
+        Log.d "  Unable to process comment_block:"
+        Log.d "  '#{comment_block}'"
+        Log.d "  Cause: #{e.message.gsub("\n","")} "
         nil
       end
     end
     endpoints = endpoints.select { |endpoint| not endpoint.nil? }
+    Log.d "#{endpoints.size} endpoints parsed : #{endpoints.map {|e| e.name}.join(',')}"
     return EndpointGroup.new opts: opts, endpoints: endpoints
   end
 end

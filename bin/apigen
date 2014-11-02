@@ -2,6 +2,7 @@
 require 'thor'
 require 'apigen/apigen.rb'
 require 'apigen/config/config_reader.rb'
+require 'apigen/log.rb'
 
 class ApigenCLI < Thor
 
@@ -11,6 +12,8 @@ class ApigenCLI < Thor
     "Reads file config locted at [FILENAME] and generates clients. By default the config file is
     located at ./apigen.json"
   def generate(config_path=DEFAULT_FILE)
+    Log.init level: Logger::DEBUG
+
     @apigen = Apigen.new
     config_file = File.read config_path
     reader = ConfigReader.parse config_file
@@ -20,7 +23,7 @@ class ApigenCLI < Thor
         program = File.read input
         @apigen.generate program, endpoint[:generators]
       else
-        puts "File #{input} not found. Check your config file."
+        Log.e "File #{input} not found. Check your config file."
       end
     end
   end
@@ -31,6 +34,7 @@ class ApigenCLI < Thor
   desc "generate:config [FILENAME:optional]",
     "Generates an example configuration file in the given path"
   def generate_config(config_path=DEFAULT_FILE)
+    Log.init level: Logger::DEBUG
     json = """
 {
   \"endpoints\":[
@@ -51,7 +55,7 @@ class ApigenCLI < Thor
       f.write json
     end
 
-    puts "wrote #{json.bytes.size} bytes to #{config_path}"
+    Log.i "wrote #{json.bytes.size} bytes to #{config_path}"
   end
 
   desc 'parse_config [FILENAME:optional]', "Reads the config file and outputs it's contents to stdout."
@@ -60,14 +64,15 @@ class ApigenCLI < Thor
   If the FILENAME param is not passed to parse_config, parse_config will try to read from ./apigen.json
   LONG_DESC
   def parse_config(config_path=DEFAULT_FILE)
+    Log.init level: Logger::DEBUG
     config = File.read config_path
     config_reader = ConfigReader.parse config
     endpoints = config_reader.endpoints
-    puts "input: #{endpoints.size} endpoints detected:"
+    Log.d "input: #{endpoints.size} endpoints detected:"
     endpoints.each do |endpoint|
       puts endpoint[:input]
       endpoint[:generators].each do |generator|
-        puts "  #{generator.inspect}"
+        Log.d "  #{generator.inspect}"
       end
     end
   end

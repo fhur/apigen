@@ -29,11 +29,12 @@ class HttpMethod
   end
 
   def ==(other)
-    self.name == other.name and self.has_body == other.has_body
+    return false unless other.class == self.class
+    @name == other.name and @has_body == other.has_body
   end
 
   def inspect
-    "name: #{name}, body: #{has_body}"
+    "name: #{@name}, body: #{@has_body}"
   end
 
 end

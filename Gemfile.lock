@@ -58,6 +58,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  jeweler (= 2.0.1)
-  minitest (= 5.4)
+  jeweler (~> 2)
+  minitest (~> 5)
   simplecov

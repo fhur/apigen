@@ -81,5 +81,20 @@ class Endpoint
     @request_params[request_param.name] = request_param
   end
 
+  # returns the values of the @path_params hash as an array
+  def path_params_list
+    @path_params.values
+  end
+
+  # returns the values of the @query_params hash as an array
+  def query_params_list
+    @query_params.values
+  end
+
+  # returns the values of the @headers hash as an array
+  def headers_list
+    @headers.values
+  end
+
 end
 

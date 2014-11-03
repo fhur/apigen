@@ -30,7 +30,7 @@ class Endpoint
   # i.e. /users?user_name=bob contains the user_name query param
   attr_reader :query_params
 
-  # An array of Header objects, each header is an http header key/value pair
+  # A map of header names to Header objects. Each header is an http header key/value pair
   attr_reader :headers
 
   # a readable identifier for this endpoint (in underscored_lower_case format)

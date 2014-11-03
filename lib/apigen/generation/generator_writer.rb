@@ -6,7 +6,7 @@ class GeneratorWriter
 
   # the location where this generator should
   # produce output. if path is nil, it should
-  # produce output to stdinput.
+  # produce output to STDOUT.
   attr_accessor  :path
 
   # a hash of options

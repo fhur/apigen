@@ -16,7 +16,7 @@ class Apigen
     endpoint_group = @apigen_compiler.compile program, opts
     Log.d "Using #{generator_writers.size} generators"
     generator_writers.each do |g|
-      Log.d "  generating with #{g.class}"
+      Log.d "  generating with #{g.generator.class}"
       g.generate_and_write endpoint_group
     end
     Log.d "Generation done."

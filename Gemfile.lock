@@ -52,6 +52,7 @@ GEM
       multi_json
       simplecov-html (~> 0.8.0)
     simplecov-html (0.8.0)
+    thor (0.19.1)
     thread_safe (0.3.4)
 
 PLATFORMS
@@ -61,3 +62,4 @@ DEPENDENCIES
   jeweler (~> 2)
   minitest (~> 5)
   simplecov
+  thor

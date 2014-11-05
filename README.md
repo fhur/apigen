@@ -103,24 +103,29 @@ The opts parameter is optional, it is passed on to the generator,
 different genrators may require that you pass different options.
 
 ```json
-input: "~/apps/my_rails_app/app/controllers/users_controller.rb",
-generators: [
+"input": "~/apps/my_rails_app/app/controllers/users_controller.rb",
+"generators": [
   {
-    require: "apigen-ruby",
-    out:  "~/apps/gems/apigen_ruby/lib/users_api.rb",
-    opts : {
-      name: "UsersApi"
+    "require": "apigen-ruby",
+    "out":  "~/apps/gems/apigen_ruby/lib/users_api.rb",
+    "opts" : {
+      "name": "UsersApi"
     }
   },
   {
-    require: "apigen-python"
-    out: "~/apps/pips/apigen_py/users_api.py",
-    opts : {}
+    "require": "apigen-python"
+    "out": "~/apps/pips/apigen_py/users_api.py",
+    "opts" : {}
   }
 ]
 ```
 
-== Contributing to apigen
+## Supported Generators
+This is a list of all known generators. 
+* `apigen-json`: https://github.com/fhur/apigen-json
+* `apigen-markdown`: https://github.com/fhur/apigen-markdown
+
+## Contributing to apigen
  
 * Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet.
 * Check out the issue tracker to make sure someone already hasn't requested it and/or contributed it.

@@ -20,4 +20,9 @@ class EndpointGroup
     @endpoints.size
   end
 
+  # Expose private method #binding
+  def get_binding
+    binding()
+  end
+
 end

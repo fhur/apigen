@@ -38,5 +38,13 @@ describe EndpointGroup do
 
   end
 
+  describe "get_binding" do
+
+    it "should return a non null result" do
+      endpoint_group = EndpointGroup.new
+      endpoint_group.get_binding.wont_be_nil
+    end
+  end
+
 
 end

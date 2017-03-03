@@ -1,6 +1,8 @@
 require 'minitest/autorun'
-require './lib/apigen/lang/parser.tab.rb'
-
+# require './lib/apigen/lang/parser.tab.rb'
+lib = File.expand_path('../../lib', __FILE__)
+$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
+require 'apigen'
 describe Parser do
 
   before :each do

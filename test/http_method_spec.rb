@@ -1,6 +1,8 @@
 require 'minitest/autorun'
-require './lib/apigen/http_method.rb'
-
+# require './lib/apigen/http_method.rb'
+lib = File.expand_path('../../lib', __FILE__)
+$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
+require 'apigen'
 describe HttpMethod do
 
   describe ':get' do

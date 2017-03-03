@@ -1,5 +1,8 @@
-require './lib/apigen/lang/apigen_compiler.rb'
+# require './lib/apigen/lang/apigen_compiler.rb'
 require 'minitest/autorun'
+lib = File.expand_path('../../lib', __FILE__)
+$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
+require 'apigen'
 
 describe ApigenCompiler do
 

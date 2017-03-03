@@ -1,5 +1,7 @@
-require './lib/generator.rb'
-
+#require './lib/generator.rb'
+lib = File.expand_path('../../lib', __FILE__)
+$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
+require 'apigen'
 class HTTPartyGenerator < Generator
 
   def initialize(endpoint_group)

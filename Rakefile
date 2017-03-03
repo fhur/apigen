@@ -28,6 +28,7 @@ Jeweler::RubygemsDotOrgTasks.new
 
 desc "Run all minitest tests"
 task :test do
+
   Dir.glob("./test/**").each { |file| require file }
 end
 

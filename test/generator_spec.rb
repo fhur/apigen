@@ -1,6 +1,8 @@
 require 'minitest/autorun'
-require './lib/apigen/generation/generator.rb'
-
+# require './lib/apigen/generation/generator.rb'
+lib = File.expand_path('../../lib', __FILE__)
+$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
+require 'apigen'
 
 describe Generator do
 

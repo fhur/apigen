@@ -1,7 +1,8 @@
-require 'apigen/log.rb'
-require 'apigen/lang/comment_parser.rb'
-require 'apigen/lang/endpoint_compiler.rb'
-require 'apigen/endpoint_group.rb'
+
+# require 'apigen/log.rb'
+# require 'apigen/lang/comment_parser.rb'
+# require 'apigen/lang/endpoint_compiler.rb'
+# require 'apigen/endpoint_group.rb'
 
 class ApigenCompiler
 

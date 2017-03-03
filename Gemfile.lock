@@ -35,7 +35,10 @@ GEM
     multi_json (1.10.1)
     multi_xml (0.5.5)
     multipart-post (2.0.0)
+    mustache (1.0.3)
     nokogiri (1.6.3.1)
+      mini_portile (= 0.6.0)
+    nokogiri (1.6.3.1-x64-mingw32)
       mini_portile (= 0.6.0)
     oauth2 (1.0.0)
       faraday (>= 0.8, < 0.10)
@@ -57,9 +60,14 @@ GEM
 
 PLATFORMS
   ruby
+  x64-mingw32
 
 DEPENDENCIES
   jeweler (~> 2)
   minitest (~> 5)
+  mustache
   simplecov
   thor
+
+BUNDLED WITH
+   1.14.4

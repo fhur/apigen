@@ -1,6 +1,8 @@
 require 'minitest/autorun'
-require './lib/apigen/lang/comment_lexer.rb'
-
+# require './lib/apigen/lang/comment_lexer.rb'
+lib = File.expand_path('../../lib', __FILE__)
+$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
+require 'apigen'
 describe CommentLexer do
 
   describe "ruby comments" do

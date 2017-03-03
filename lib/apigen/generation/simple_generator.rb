@@ -1,4 +1,4 @@
-require 'apigen/generation/generator.rb'
+# require 'apigen/generation/generator.rb'
 
 class SimpleGenerator < Generator
 

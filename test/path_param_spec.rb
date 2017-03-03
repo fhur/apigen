@@ -1,6 +1,8 @@
 require 'minitest/autorun'
-require './lib/apigen/path_param.rb'
-
+# require './lib/apigen/path_param.rb'
+lib = File.expand_path('../../lib', __FILE__)
+$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
+require 'apigen'
 describe PathParam do
 
   describe "fromUrl" do

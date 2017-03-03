@@ -1,5 +1,5 @@
 require 'json'
-require 'apigen/generation/generator_writer.rb'
+# require 'apigen/generation/generator_writer.rb'
 
 class ConfigReader
 
